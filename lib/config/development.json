@@ -1,0 +1,4 @@
+{
+    "webSocketPort": 3001,
+    "tcpSocketPort": 3002
+}

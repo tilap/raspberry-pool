@@ -1,0 +1,54 @@
+{
+    "mac": {
+        "name": "Test mac",
+        "networks": {
+            "a4:5e:60:ca:3d:81": {
+                "type": "wifi"
+            },
+            "ac:87:a3:2a:45:bb": {
+                "type": "ethernet"
+            }
+        },
+        "url": "http://evaneos.it"
+    },
+    "kitchen_1": {
+        "name": "TV Kitchen",
+        "networks": {
+            "00:c1:41:34:0a:0d": {}
+        },
+        "url": "http://pro.evaneos.com/dashboard/#/sale"
+    },
+    "kitchen_2": {
+        "name": "TV Kitchen Hallway",
+        "networks": {
+            "00:c1:41:31:01:01": {}
+        },
+        "url": "http://webcdn.earthtv.com/player/1.40/player.html?v=1.4#{\"home_url\":\"http://webcdn.earthtv.com/player/1.40/\",\"ifr_url\":\"player.html\",\"api\":\"//api.earthtv.com/v1\",\"iframe\":true,\"debug\":false,\"wrapper\":\"etvPlayer\",\"width\":0,\"carousel\":false,\"menu\":true,\"quality\":\"720\",\"autoplay\":true,\"bgcolor\":\"000000\",\"loop\":true,\"language\":\"fr_FR\",\"limit\":25,\"parentURL\":\"http://www.earthtv.com\",\"fallback\":true,\"smIcons\":false,\"shuffle\":false,\"mute\":false,\"piwik\":false,\"layerid\":\"player\",\"channel\":\"The+World+Live+fr_FR\",\"responsive\":true}"
+    },
+    "potoo_pekin": {
+        "name": "Pekin",
+        "networks": {},
+        "url": "http://potoo.io/pekin"
+    },
+    "potoo_delhi": {
+        "name": "Delhi",
+        "networks": {
+            "b8:27:eb:eb:00:8e": {}
+        },
+        "url": "http://potoo.io/delhi"
+    },
+    "potoo_barcelone": {
+        "name": "Barcelone",
+        "networks": {
+            "00:c1:41:34:0d:13": {}
+        },
+        "url": "http://potoo.io/barcelone"
+    },
+    "potoo_san-francisco": {
+        "name": "San Francisco",
+        "networks": {
+            "b8:27:eb:c4:10:9e": {}
+        },
+        "url": "http://potoo.io/san-francisco"
+    }
+}

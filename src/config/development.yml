@@ -1,0 +1,5 @@
+common:
+    webSocketPort: 3001
+server:
+    tcpSocketPort: 3002
+

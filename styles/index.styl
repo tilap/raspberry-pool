@@ -1,0 +1,36 @@
+@require 'theme-evaneos';
+@require 'turaco-styl/themes/simple-blue';
+$page-100 = false
+
+@require 'turaco-styl/index';
+@require 'turaco-styl/components/index';
+@require 'spinner';
+
+.raspberry-list
+    display flex
+    flex-wrap wrap
+    justify-content center
+    align-content center
+    align-items center stretch
+
+    .raspberry-item
+        position relative
+        margin 5px
+        padding 20px
+        z-depth-1()
+        background #fff
+        flex 1
+        min-width 600px
+        max-width 700px
+
+    .status
+        absolute top 20px right 20px
+
+    .spinner
+        absolute bottom 20px right 20px
+
+
+    .button-container
+        margin-top 10px
+        button
+            margin-right 5px
