@@ -47,6 +47,7 @@ function raspberry(raspberry, action) {
 }
 
 export default function raspberries(raspberries = [], action) {
+    console.log(action);
     switch (action.type) {
         case ADD_RASPBERRY:
             return [
@@ -58,6 +59,8 @@ export default function raspberries(raspberries = [], action) {
         case UPDATE_RASPBERRY:
         case SAVING_RASPBERRY:
         case SAVED_RASPBERRY:
+        case SENDING_ACTION_RASPBERRY:
+        case ACTION_DONE_RASPBERRY:
             return raspberries.map(r => raspberry(r, action));
         default:
             return raspberries;

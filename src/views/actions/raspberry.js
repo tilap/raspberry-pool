@@ -74,6 +74,7 @@ export function saveRaspberry(dispatch, raspberry, changes) {
 export function sendAction(dispatch, raspberry, action) {
     dispatch(sendingActionRaspberry(raspberry));
     sendActionRaspberry(raspberry, action, (result) => {
+        console.log(result)
         dispatch(actionDoneRaspberry(raspberry, action, result));
     });
 }

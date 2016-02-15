@@ -33,6 +33,11 @@ export function start(config) {
     });
 }
 
+function emit(...args) {
+    logger.debug('emit', { args });
+    return socket.emit(...args);
+}
+
 export function on(type, handler) {
     // only one handler per type is supported
     socket.on(type, handler);
@@ -44,9 +49,9 @@ export function off(type, handler) {
 }
 
 export function patchRaspberry(raspberry, changes, callback) {
-    socket.emit('patch raspberry', { id: raspberry.id, changes }, callback);
+    emit('patch raspberry', { id: raspberry.id, changes }, callback);
 }
 
 export function sendAction(raspberry, action, callback) {
-    socket.emit('action raspberry', { id: raspberry.id, action }, callback);
+    emit('action raspberry', { id: raspberry.id, action }, callback);
 }

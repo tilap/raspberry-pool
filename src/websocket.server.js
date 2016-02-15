@@ -45,7 +45,6 @@ export function start(config) {
             changes = patchRaspberry(raspberry, changes);
             callback(changes);
             socket.broadcast.emit('update raspberry', { raspberry });
-
         });
 
         socket.on('action raspberry', ({ id, action }, callback) => {

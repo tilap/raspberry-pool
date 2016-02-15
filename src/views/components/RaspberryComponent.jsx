@@ -42,7 +42,8 @@ export default class RaspberryComponent extends Component {
                     save(raspberry, { url });
                     this.setState({ urlChanged: false });
                 }}>Save</button>
-                <button type="button" disabled={!raspberry.online} onClick={() => sendAction(raspberry, 'refresh')}>Refresh page on screen</button>
+                <button type="button" disabled={!raspberry.online || raspberry.refresh === 'sending'}
+                        onClick={() => sendAction(raspberry, 'refresh')}>Refresh page on screen</button>
             </div>
         </div>);
     }

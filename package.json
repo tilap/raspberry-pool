@@ -22,7 +22,7 @@
     "json-tcp-socket": "^1.0.3",
     "koa-convert": "^1.2.0",
     "koa-static": "^2.0.0",
-    "nightingale": "^2.3.0",
+    "nightingale": "^3.0.3",
     "objectstream": "0.0.4",
     "react-pure-render": "^1.0.2",
     "turaco-styl": "0.0.3"
@@ -48,7 +48,7 @@
       "ibex-logger": "npm:ibex-logger@^1.2.0",
       "ibex-react-redux": "npm:ibex-react-redux@^2.2.0",
       "ibex-translate": "npm:ibex-translate@^1.1.0",
-      "nightingale": "npm:nightingale@^2.3.0",
+      "nightingale": "npm:nightingale@^3.0.3",
       "react": "npm:react@^0.14.7",
       "react-pure-render": "npm:react-pure-render@^1.0.2",
       "react-redux": "npm:react-redux@^4.3.0",
