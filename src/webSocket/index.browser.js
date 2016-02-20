@@ -1,12 +1,7 @@
 import socketio from 'socket.io';
 import { ConsoleLogger, LogLevel } from 'nightingale';
 
-const logger = new ConsoleLogger('websocket', LogLevel.ALL);
-
-// if (!socketjs.isSupported()) {
-//    alert('Websocket not supported! Please consider upgrading your browser.');
-//    throw new Error('Websocket not supported! Cannot continue.');
-// }
+const logger = new ConsoleLogger('app.webSocket', LogLevel.INFO);
 
 let socket;
 
@@ -48,10 +43,14 @@ export function off(type, handler) {
     socket.off(type, handler);
 }
 
-export function patchRaspberry(raspberry, changes, callback) {
-    emit('patch raspberry', { id: raspberry.id, changes }, callback);
+export function changeConfig(raspberry, config, callback) {
+    emit('raspberry:changeConfig', raspberry.id, config, callback);
 }
 
 export function sendAction(raspberry, action, callback) {
-    emit('action raspberry', { id: raspberry.id, action }, callback);
+    emit('raspberry:sendAction', raspberry.id, action, callback);
+}
+
+export function registerUnknown(raspberry, name, callback) {
+    emit('raspberry:add', raspberry.id, name, callback);
 }

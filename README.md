@@ -9,7 +9,7 @@ git clone https://github.com/christophehurpeau/raspberry-pool.git
 Create data/raspberries.json
 
 ```
-{"room1":{"name":"TV room 1","networks":{"mac":{"type":"ethernet"}},"url":""}}}
+{}
 ```
 
 ### For dev
@@ -41,6 +41,8 @@ server:
     tcpSocketPort: 3002
 
 ```
+
+Copy your ssl certificate in `config/cert/server.key` and `config/cert/server.crt` for the webSocket.
 
 Create supervisor config file
 

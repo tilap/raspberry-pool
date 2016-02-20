@@ -14,6 +14,7 @@ lib/config/local.yml
 /config
 node_modules
 jspm_packages
+/data
 
 /.settings
 /.project

@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { writeById } from '../tcp-server';
+import { slugify as _slugify } from 'transliteration';
 
 const dataFilename = `${__dirname}/../../data/raspberries.json`;
 
@@ -45,7 +46,15 @@ export function setOffline(raspberry, mac) {
 }
 
 export function addUnknown({ mac, ip }) {
-    unknown.set(mac, ip);
+    unknown.set(mac, { mac, ip });
+}
+
+export function removeUnknown(mac) {
+    return unknown.delete(mac);
+}
+
+export function getUnknownRaspberries() {
+    return Array.from(unknown.values());
 }
 
 export function patchRaspberry(raspberry, changes) {
@@ -64,4 +73,29 @@ export function patchRaspberry(raspberry, changes) {
 export function sendAction(raspberry, action) {
     const id = raspberry.id;
     writeById(id, { type: 'action', action });
+}
+
+function slugify(string) {
+    return _slugify(string, { lowercase: true, separator: '-' });
+}
+
+// ip should not be written
+export function addNew(mac, name) {
+    const newRaspberryItem = {
+        name,
+        mac,
+        url: '',
+        networks: {
+            [mac]: {},
+        },
+    };
+
+    items.push(newRaspberryItem);
+    const id = slugify(name);
+
+    const newRaspberry = Object.assign({}, newRaspberryItem, {
+        id,
+    });
+
+    return newRaspberry;
 }

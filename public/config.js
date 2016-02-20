@@ -16,9 +16,9 @@ System.config({
     "ibex-config": "npm:ibex-config@1.1.0",
     "ibex-language": "npm:ibex-language@1.1.0",
     "ibex-logger": "npm:ibex-logger@1.2.0",
-    "ibex-react-redux": "npm:ibex-react-redux@2.3.0",
+    "ibex-react-redux": "npm:ibex-react-redux@2.3.1",
     "ibex-translate": "npm:ibex-translate@1.1.0",
-    "nightingale": "npm:nightingale@3.0.3",
+    "nightingale": "npm:nightingale@3.0.4",
     "react": "npm:react@0.14.7",
     "react-pure-render": "npm:react-pure-render@1.0.2",
     "react-redux": "npm:react-redux@4.4.0",
@@ -55,7 +55,7 @@ System.config({
       "stack-trace": "npm:stack-trace@0.0.9"
     },
     "npm:alp-logger@1.4.0": {
-      "nightingale": "npm:nightingale@3.0.3"
+      "nightingale": "npm:nightingale@3.0.4"
     },
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"
@@ -107,10 +107,10 @@ System.config({
       "alp-logger": "npm:alp-logger@1.4.0",
       "ibex-config": "npm:ibex-config@1.1.0"
     },
-    "npm:ibex-react-redux@2.3.0": {
+    "npm:ibex-react-redux@2.3.1": {
       "fody": "npm:fody@2.0.1",
       "fody-redux": "npm:fody-redux@2.0.1",
-      "nightingale": "npm:nightingale@3.0.3",
+      "nightingale": "npm:nightingale@3.0.4",
       "redux": "npm:redux@3.3.1"
     },
     "npm:ibex@1.0.1": {
@@ -123,7 +123,7 @@ System.config({
       "loose-envify": "npm:loose-envify@1.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:lodash@4.3.0": {
+    "npm:lodash@4.5.0": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
@@ -133,7 +133,7 @@ System.config({
       "stream": "github:jspm/nodelibs-stream@0.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:nightingale@3.0.3": {
+    "npm:nightingale@3.0.4": {
       "alouette": "npm:alouette@3.4.0",
       "ansi-styles": "npm:ansi-styles@2.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
@@ -155,7 +155,7 @@ System.config({
     "npm:react-redux@4.4.0": {
       "hoist-non-react-statics": "npm:hoist-non-react-statics@1.0.5",
       "invariant": "npm:invariant@2.2.0",
-      "lodash": "npm:lodash@4.3.0",
+      "lodash": "npm:lodash@4.5.0",
       "loose-envify": "npm:loose-envify@1.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "react": "npm:react@0.14.7",
@@ -176,8 +176,8 @@ System.config({
       "string_decoder": "npm:string_decoder@0.10.31"
     },
     "npm:redux@3.3.1": {
-      "lodash": "npm:lodash@4.3.0",
-      "lodash-es": "npm:lodash-es@4.3.0",
+      "lodash": "npm:lodash@4.5.0",
+      "lodash-es": "npm:lodash-es@4.5.0",
       "loose-envify": "npm:loose-envify@1.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },

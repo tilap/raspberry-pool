@@ -12,10 +12,10 @@ import routerBuilder from './routerBuilder';
 import reactredux from 'auk-react-redux';
 import Html from './views/layouts/Html';
 
-import controllers from './controllers';
+import controllers from './server/controllers';
 
-import { start as startTcpServer } from './tcp-server';
-import { start as startWebsocket } from './websocket';
+import { start as startTcpServer } from './server/tcp-server';
+import { start as startWebsocket } from './webSocket';
 
 const app = new Auk();
 config(`${__dirname}/config`, { argv: ['webSocketPort', 'tcpSocketPort'] })(app);
@@ -30,9 +30,11 @@ app.use(convert(serve(`${__dirname}/../public/`))); // static files
 app.use(errors);
 app.use(handler);
 
-app.listen(`${__dirname}/../config/cert`).then((server) => {
-    startTcpServer(app.config);
-    startWebsocket(app.config);
-}).catch(app.logger.error);
+app.listen(`${__dirname}/../config/cert`)
+    .then((server) => {
+        startTcpServer(app.config);
+        startWebsocket(app.config);
+    })
+    .catch(app.logger.error);
 
 

@@ -5,7 +5,7 @@ import language from 'ibex-language';
 import logger from 'ibex-logger';
 import reactredux from 'ibex-react-redux';
 import translate from 'ibex-translate';
-import { start as startWebSocket } from './websocket';
+import { start as startWebSocket } from './webSocket/index';
 
 import * as appDescriptor from './views/index';
 

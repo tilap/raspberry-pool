@@ -1,6 +1,6 @@
 import socketio from 'socket.io';
 import { ConsoleLogger, LogLevel } from 'nightingale';
-import { items as raspberries, patchRaspberry, getById, sendAction } from './data/raspberries';
+import { items as raspberries, patchRaspberry, getById, sendAction, getUnknownRaspberries, removeUnknown, addNew } from './data/raspberries';
 import { readFileSync } from 'fs';
 import { createServer } from 'https';
 
@@ -31,7 +31,7 @@ export function start(config) {
     io = socketio(server);
     io.on('connection', socket => {
         logger.info('connected', { id: socket.id });
-        socket.emit('update all', { raspberries });
+        socket.emit('update all', { raspberries, unknownRaspberries: getUnknownRaspberries() });
 
         socket.on('patch raspberry', ({ id, changes }, callback) => {
             logger.log('patch raspberry', { id, changes });
@@ -57,6 +57,18 @@ export function start(config) {
             }
 
             sendAction(raspberry, action);
+        });
+
+        socket.on('save unknown raspberry', ({ mac, name }, callback) => {
+            if (!removeUnknown(mac)) {
+                return callback(false);
+            }
+
+            const raspberry = addNew(mac, name);
+            socket.broadcast.emit('delete unknown raspberry', { raspberry: { mac } });
+            broadcast('add raspberry', { raspberry });
+
+            callback(true);
         });
 
         socket.on('disconnect', () => {

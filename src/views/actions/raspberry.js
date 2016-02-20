@@ -1,13 +1,13 @@
-export const UPDATE_ALL = 'UPDATE_ALL';
+export const UPDATE_ALL = 'UPDATE_ALL_RASPBERRY';
 export const ADD_RASPBERRY = 'ADD_RASPBERRY';
 export const UPDATE_RASPBERRY = 'UPDATE_RASPBERRY';
-export const CHANGE_URL_RASPBERRY = 'CHANGE_URL_RASPBERRY';
+export const REMOVE_RASPBERRY = 'REMOVE_RASPBERRY';
 export const SAVING_RASPBERRY = 'SAVING_RASPBERRY';
 export const SAVED_RASPBERRY = 'SAVED_RASPBERRY';
 export const SENDING_ACTION_RASPBERRY = 'SENDING_ACTION_RASPBERRY';
 export const ACTION_DONE_RASPBERRY = 'ACTION_DONE_RASPBERRY';
 
-import { patchRaspberry as sendPatchRaspberry, sendAction as sendActionRaspberry } from '../../websocket';
+import * as webSocket from '../../webSocket/index';
 
 export function updateAll(raspberries) {
     return {
@@ -16,14 +16,14 @@ export function updateAll(raspberries) {
     };
 }
 
-export function addRaspberry(raspberry) {
+export function add(raspberry) {
     return {
         type: ADD_RASPBERRY,
         raspberry,
     };
 }
 
-export function updateRaspberry(raspberry) {
+export function update(raspberry) {
     return {
         type: UPDATE_RASPBERRY,
         id: raspberry.id,
@@ -31,14 +31,21 @@ export function updateRaspberry(raspberry) {
     };
 }
 
-function savingRaspberry(raspberry) {
+export function remove(id) {
+    return {
+        type: REMOVE_RASPBERRY,
+        id,
+    };
+}
+
+function saving(raspberry) {
     return {
         type: SAVING_RASPBERRY,
         id: raspberry.id,
     };
 }
 
-function savedRaspberry(raspberry, changes) {
+function saved(raspberry, changes) {
     return {
         type: SAVED_RASPBERRY,
         id: raspberry.id,
@@ -46,7 +53,7 @@ function savedRaspberry(raspberry, changes) {
     };
 }
 
-function sendingActionRaspberry(raspberry, action) {
+function sendingAction(raspberry, action) {
     return {
         type: SENDING_ACTION_RASPBERRY,
         id: raspberry.id,
@@ -54,7 +61,7 @@ function sendingActionRaspberry(raspberry, action) {
     };
 }
 
-function actionDoneRaspberry(raspberry, action, result) {
+function actionDone(raspberry, action, result) {
     return {
         type: ACTION_DONE_RASPBERRY,
         id: raspberry.id,
@@ -64,17 +71,25 @@ function actionDoneRaspberry(raspberry, action, result) {
 }
 
 
-export function saveRaspberry(dispatch, raspberry, changes) {
-    dispatch(savingRaspberry(raspberry));
-    sendPatchRaspberry(raspberry, changes, () => {
-        dispatch(savedRaspberry(raspberry, changes));
+export function changeConfig(dispatch, raspberry, newConfig) {
+    dispatch(saving(raspberry));
+    webSocket.changeConfig(raspberry, newConfig, () => {
+        dispatch(saved(raspberry, { data: { ...raspberry.data, config: newConfig } }));
     });
 }
 
 export function sendAction(dispatch, raspberry, action) {
-    dispatch(sendingActionRaspberry(raspberry));
-    sendActionRaspberry(raspberry, action, (result) => {
-        console.log(result)
-        dispatch(actionDoneRaspberry(raspberry, action, result));
+    dispatch(sendingAction(raspberry));
+    webSocket.sendAction(raspberry, action, (result) => {
+        dispatch(actionDone(raspberry, action, result));
+    });
+}
+
+export function saveUnknown(dispatch, raspberry, { name }) {
+    dispatch(saving(raspberry));
+    webSocket.registerUnknown(raspberry, name, (raspberry) => {
+        if (raspberry) {
+            dispatch(saved(raspberry, raspberry));
+        }
     });
 }

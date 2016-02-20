@@ -22,7 +22,8 @@ export function start(config) {
 
             const raspberry = raspberries.getByMac(mac);
             if (!raspberry) {
-                logger.warn('unknown mac', { mac });
+                raspberries.removeUnknown(mac);
+                broadcast('delete unknown raspberry', { raspberry: { mac } });
             } else {
                 raspberries.setOffline(raspberry, mac);
                 broadcast('raspberry offline', { raspberry });
@@ -52,6 +53,7 @@ export function start(config) {
                 if (!raspberry) {
                     logger.warn('unknown mac', { mac });
                     raspberries.addUnknown(data);
+                    broadcast('add unknown raspberry', { raspberry: { mac, ip: data.ip } });
                 } else {
                     raspberries.setOnline(raspberry, { mac, ip: data.ip });
                     broadcast('raspberry online', { raspberry });

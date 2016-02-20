@@ -1,46 +1,57 @@
-import shouldPureComponentUpdate from 'react-pure-render/function';
 import React, { Component, PropTypes } from 'react';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 import Spinner from './SpinnerComponent';
 
 export default class RaspberryComponent extends Component {
     static propTypes = {
         raspberry: PropTypes.object.isRequired,
-        save: PropTypes.func.isRequired,
+        changeConfig: PropTypes.func.isRequired,
         sendAction: PropTypes.func.isRequired,
     };
 
     constructor(props) {
         super(props);
-        this.state = { urlChanged: false };
+        this.state = {};
     }
 
     shouldComponentUpdate = shouldPureComponentUpdate;
 
     render() {
-        const { raspberry, save, sendAction } = this.props;
-        const { urlChanged } = this.state;
-        const url = urlChanged || raspberry.saving ? this.state.url : raspberry.url;
+        const { raspberry, changeConfig, sendAction } = this.props;
+
+        let url;
+        if (this.state.url != null) {
+            url = this.state.url;
+        } else if (raspberry.saving) {
+            url = this.state.lastUrl;
+        } else {
+            url = raspberry.data.config.url;
+        }
 
         return (<div className="raspberry">
-            <h2 className="text-title">{raspberry.name}</h2>
+            <h2 className="text-title">{raspberry.data.name}</h2>
             <Spinner active={raspberry.saving} />
             <span className={`status label ${raspberry.online ? 'success' : 'warning'}`}>
-                {raspberry.online ? Object.keys(raspberry.networks).map(mac => raspberry.networks[mac].ip).filter(Boolean).join(', ') : 'Offline'}
+                {raspberry.online ? `${raspberry.ip} ${raspberry.online}` : 'Offline'}
             </span>
-            <span className="text-caption">{raspberry.mac}</span>
 
             <div className="input text">
                 <input type="url" required
-                  value={url}
-                  onChange={(e) => this.setState({ urlChanged: true, url: e.target.value })}
+                    className={`has-value${url ? '' : ' has-empty-value'}`}
+                    value={url}
+                    autoComplete="off"
+                    onChange={(e) => this.setState({
+                        url: raspberry.data.config.url === e.target.value ? null : e.target.value
+                    })}
                 />
                 <label htmlFor={`raspberry-url-${raspberry.id}`}>URL</label>
             </div>
 
             <div className="button-container">
-                <button type="button" disabled={raspberry.saving || url == raspberry.url} onClick={() => {
-                    save(raspberry, { url });
-                    this.setState({ urlChanged: false });
+                <button type="button" disabled={raspberry.saving || !this.state.url} onClick={() => {
+                    const url = this.state.url;
+                    this.setState({ url: null, lastUrl: url });
+                    changeConfig(raspberry, { url });
                 }}>Save</button>
                 <button type="button" disabled={!raspberry.online || raspberry.refresh === 'sending'}
                         onClick={() => sendAction(raspberry, 'refresh')}>Refresh page on screen</button>

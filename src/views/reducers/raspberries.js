@@ -1,4 +1,4 @@
-import { UPDATE_ALL, ADD_RASPBERRY, UPDATE_RASPBERRY, SAVING_RASPBERRY, SAVED_RASPBERRY, SENDING_ACTION_RASPBERRY, ACTION_DONE_RASPBERRY } from '../actions/raspberry';
+import { UPDATE_ALL, ADD_RASPBERRY, UPDATE_RASPBERRY, REMOVE_RASPBERRY, SAVING_RASPBERRY, SAVED_RASPBERRY, SENDING_ACTION_RASPBERRY, ACTION_DONE_RASPBERRY } from '../actions/raspberry';
 
 function raspberry(raspberry, action) {
     if (action.type === ADD_RASPBERRY) {
@@ -54,6 +54,8 @@ export default function raspberries(raspberries = [], action) {
                 ...raspberries,
                 raspberry(undefined, action),
             ];
+        case REMOVE_RASPBERRY:
+            return raspberries.filter(r => r.id !== action.id);
         case UPDATE_ALL:
             return action.raspberries;
         case UPDATE_RASPBERRY:
