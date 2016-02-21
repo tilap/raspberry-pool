@@ -28,7 +28,10 @@ export function changeConfig(id, config) {
     }
 
     // TODO configManager
-    config = Object.assign({}, { url: config.url.trim() });
+    config = Object.assign({}, {
+        time: Date.now(),
+        url: config.url.trim(),
+    });
     map.get(id).config = config;
     save();
 

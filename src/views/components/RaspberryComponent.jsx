@@ -2,6 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 import Spinner from './SpinnerComponent';
 
+const actions = [
+    { name: 'Blink', value: 'blink', isVisible: r => true },
+    { name: 'Refresh', value: 'refresh', isVisible: r => r.screenState === 'on' },
+    { name: 'Screen on', value: 'screen-on', isVisible: r => r.screenState === 'off' },
+    { name: 'Screen off', value: 'screen-off', isVisible: r => r.screenState === 'on' },
+];
+
 export default class RaspberryComponent extends Component {
     static propTypes = {
         raspberry: PropTypes.object.isRequired,
@@ -28,20 +35,41 @@ export default class RaspberryComponent extends Component {
             url = raspberry.data.config.url;
         }
 
+        const availableActions = actions.filter(action => action.isVisible(raspberry));
+
         return (<div className="raspberry">
-            <h2 className="text-title">{raspberry.data.name}</h2>
+            <h2 className="text-title">
+                {raspberry.data.name}
+            </h2>
             <Spinner active={raspberry.saving} />
+
+            {!raspberry.online || !actions.length ? '' :
+                <div className="actions">
+                    <div className="dropdown button">
+                        Actions
+                        <ul className="list">
+                            {availableActions.map(action => (
+                                <li key={action.value}
+                                    onClick={() => sendAction(raspberry, action.value)}
+                                >
+                                    {action.name}
+                                    <Spinner active={raspberry.actions && raspberry.actions[action.value] === 'sending'} />
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            }
+
             <div className="status-container">
-                <span className={`status label ${raspberry.online ? 'success' : 'warning'}`}>
+                <span className={`raspberry-status label ${raspberry.online ? 'success' : 'warning'}`}>
                     {raspberry.online ? `${raspberry.ip} ${raspberry.online}` : 'Offline'}
                 </span>
                 {
                     !raspberry.online ? '' :
-                    <span className="screen-status">
-                        <span className="icon"/>
-                        <span className={`label ${raspberry.screenState === 'on' ? 'success' : 'warning'}`}>
-                            {raspberry.screenState === 'on' ? 'On' : 'Off'}
-                        </span>
+                    <span className="screen-status" title={raspberry.screenState === 'on' ? 'On' : 'Off'}>
+                        <span className="icon" />
+                        <span className={`status ${raspberry.screenState}`} />
                     </span>
                 }
             </div>
@@ -64,8 +92,6 @@ export default class RaspberryComponent extends Component {
                     this.setState({ url: null, lastUrl: url });
                     changeConfig(raspberry, { url });
                 }}>Save</button>
-                <button type="button" disabled={!raspberry.online || raspberry.refresh === 'sending'}
-                        onClick={() => sendAction(raspberry, 'refresh')}>Refresh page on screen</button>
             </div>
         </div>);
     }

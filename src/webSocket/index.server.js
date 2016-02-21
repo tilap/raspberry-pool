@@ -49,8 +49,8 @@ export function start(config) {
             }
         });
 
-        socket.on('raspberry:sendAction', (id, action) => {
-            raspberriesManager.sendAction(id, action);
+        socket.on('raspberry:sendAction', (id, action, callback) => {
+            raspberriesManager.sendAction(id, action, callback);
         });
 
         socket.on('raspberry:add', (mac, name, callback) => {

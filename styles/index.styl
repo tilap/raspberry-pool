@@ -23,24 +23,58 @@ $page-100 = false
         min-width 600px
         max-width 700px
 
-    .status-container
+    .actions
         absolute top 20px right 20px
-        text-align right
+        width 130px
+        .spinner
+            absolute bottom 2px right 5px
 
-        .status
-            display block
+    .status-container
+        .raspberry-status
+            //
 
         .screen-status
+            display inline-block
+            position relative
+            width 1.5em
+            height 1.5em
+            vertical-align middle
+            margin-left .5rem
+
             .icon
                 background url('screen-2.svg')
-                width 18px
-                height 18px
-                vertical-align middle
+                width 1.5em
+                height 1.5em
                 display inline-block
-                margin-right .2rem
                 background-size contain
+            .status
+                vertical-align bottom
+                width .8em
+                height .8em
+                absolute right -2px bottom -2px
+                border-radius .8em
 
-    .spinner
+                &.on
+                    background $valid-color
+                &.off
+                    background $invalid-color
+                &.unavailable
+                    width .9em
+                    height .9em
+                &.unavailable::before, &.unavailable::after
+                    absolute left 0 top 50%
+                    height .2em
+                    width 100%
+                    margin-top -.1em
+                    content ''
+                    background $invalid-color
+
+                &.unavailable::before
+                    transform rotate(45deg)
+                &.unavailable::after
+                    transform rotate(-45deg)
+
+    > .spinner
         absolute bottom 20px right 20px
 
 

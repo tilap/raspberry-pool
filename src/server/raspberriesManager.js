@@ -40,7 +40,7 @@ export function getAll() {
 
 /* FROM raspberries */
 
-export function setOnline(mac, info) {
+export function setOnline(mac, configTime, info) {
     let raspberry = getByMac(mac);
     let unknownMac = false;
     if (!raspberry) {
@@ -57,6 +57,13 @@ export function setOnline(mac, info) {
     Object.assign(raspberry, info);
 
     webSocket.broadcast(`raspberry:${unknownMac ? 'add' : 'update'}`, raspberry);
+
+    if (raspberry.data.config.time !== configTime) {
+        raspberries.emit(raspberry.online, {
+            type: 'change-config',
+            config: raspberry.data.config,
+        });
+    }
 }
 
 export function update(mac, info) {
@@ -109,7 +116,7 @@ export function changeConfig(id, config) {
 
 export function add(mac, name) {
     const raspberry = getByMac(mac);
-    if (!raspberry || raspberry.data) {
+    if (!raspberry || !raspberry.registered) {
         logger.warn('unknown raspberry', { mac });
         // should not happen...
         return;
@@ -120,12 +127,14 @@ export function add(mac, name) {
     return raspberry;
 }
 
-export function sendAction(id, action) {
+export function sendAction(id, action, callback) {
     const raspberry = getById(id);
-    if (!raspberry || raspberry.data) {
+    if (!raspberry || !raspberry.registered) {
+        logger.warn('unknown raspberry', { id });
         // should not happen...
-        return;
+        return callback();
     }
 
     raspberries.emit(raspberry.online, { type: 'action', action });
+    callback();
 }

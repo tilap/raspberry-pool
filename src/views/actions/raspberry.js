@@ -79,7 +79,7 @@ export function changeConfig(dispatch, raspberry, newConfig) {
 }
 
 export function sendAction(dispatch, raspberry, action) {
-    dispatch(sendingAction(raspberry));
+    dispatch(sendingAction(raspberry, action));
     webSocket.sendAction(raspberry, action, (result) => {
         dispatch(actionDone(raspberry, action, result));
     });
