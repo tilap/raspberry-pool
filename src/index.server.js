@@ -8,6 +8,7 @@ import language from 'auk-language';
 import logger from 'auk-logger';
 import translate from 'auk-translate';
 import router from 'auk-limosa';
+import packageConfig from '../package.json';
 import routerBuilder from './routerBuilder';
 import reactredux from 'auk-react-redux';
 import Html from './views/layouts/Html';
@@ -18,7 +19,7 @@ import { start as startTcpServer } from './server/tcp-server';
 import { start as startWebsocket } from './webSocket';
 
 const app = new Auk();
-config(`${__dirname}/config`, { argv: ['webSocketPort', 'tcpSocketPort'] })(app);
+config(`${__dirname}/config`, { packageConfig, argv: ['webSocketPort', 'tcpSocketPort'] })(app);
 params(app);
 language(app);
 logger(app);
@@ -36,5 +37,3 @@ app.listen(`${__dirname}/../config/cert`)
         startWebsocket(app.config);
     })
     .catch(app.logger.error);
-
-

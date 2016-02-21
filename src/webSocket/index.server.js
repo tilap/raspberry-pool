@@ -32,7 +32,11 @@ export function start(config) {
     io = socketio(server);
     io.on('connection', socket => {
         logger.info('connected', { id: socket.id });
-        socket.emit('update-all', raspberriesManager.getAll());
+        socket.emit('hello', {
+            version: config.get('version'),
+            raspberries: raspberriesManager.getAll(),
+        });
+
 
         socket.on('raspberry:changeConfig', (id, config, callback) => {
             const newConfig = raspberriesManager.changeConfig(id, config, callback);

@@ -26,7 +26,11 @@ class IndexView extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props;
-        this._handlerUpdateAll = on('update-all', (raspberries) => {
+        this._handlerHello = on('hello', ({ version, raspberries }) => {
+            console.log(version);
+            if (version !== window.VERSION) {
+                return location.reload(true);
+            }
             dispatch(raspberriesActions.updateAll(raspberries));
         });
         this._handlerAdd = on('raspberry:add', (raspberry) => {
@@ -41,7 +45,7 @@ class IndexView extends Component {
     }
 
     componentWillUnmount() {
-        off('update-all', this._handlerUpdateAll);
+        off('hello', this._handlerHello);
         off('raspberry:add', this._handlerAdd);
         off('raspberry:update', this._handlerUpdate);
         off('raspberry:delete', this._handlerDelete);

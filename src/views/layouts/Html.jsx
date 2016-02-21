@@ -9,6 +9,7 @@ export default class Html extends Component {
         css: PropTypes.string,
         body: PropTypes.string.isRequired,
         initialData: PropTypes.object.isRequired,
+        context: PropTypes.object.isRequired,
     };
 
     static defaultProps = {
@@ -29,7 +30,11 @@ export default class Html extends Component {
                 <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,500,300,100,500italic,400italic,700italic" rel="stylesheet" type="text/css" />
                 <link rel="stylesheet" href="/index.css" />
                 <style id="css" dangerouslySetInnerHTML={{ __html: this.props.css }} />
-                <script dangerouslySetInnerHTML={{ __html: 'window.initialData = ' + JSON.stringify(this.props.initialData) }}></script>
+                <script dangerouslySetInnerHTML={{ __html:
+                    `window.VERSION = '${this.props.context.config.get('version')}';`
+                    + `window.initialData = ${JSON.stringify(this.props.initialData)}`,
+                    }}
+                ></script>
             </head>
             <body>
             <div id="app" dangerouslySetInnerHTML={{ __html: this.props.body }} />
