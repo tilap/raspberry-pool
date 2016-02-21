@@ -1,7 +1,7 @@
 {
   "name": "raspberry-pool",
   "private": true,
-  "version": "3.0.0",
+  "version": "0.1.1",
   "description": "Raspberry pool",
   "main": "./lib/index.js",
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)",
@@ -25,7 +25,7 @@
     "nightingale": "^3.0.3",
     "objectstream": "0.0.4",
     "react-pure-render": "^1.0.2",
-    "turaco-styl": "0.3.1"
+    "turaco-styl": "0.5.0"
   },
   "devDependencies": {
     "babel": "^6.5.1",

@@ -1,6 +1,7 @@
 @require 'theme-evaneos';
 @require 'turaco-styl/themes/simple-blue';
 $page-100 = false
+$body-background = #f4e8d8
 
 @require 'turaco-styl/index';
 @require 'turaco-styl/components/index';
@@ -20,14 +21,26 @@ $page-100 = false
         z-depth-1()
         background #fff
         flex 1
-        min-width 600px
+        min-width 450px
         max-width 700px
+
+        @media (max-width: 500px)
+            min-width 100%
+
+    fieldset
+        margin-left 0
+        margin-right 0
 
     .actions
         absolute top 20px right 20px
         width 130px
         .spinner
             absolute bottom 2px right 5px
+
+        @media (max-width: 500px)
+            position relative
+            top auto
+            right auto
 
     .status-container
         .raspberry-status
