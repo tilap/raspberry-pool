@@ -51,8 +51,17 @@ export function start(config) {
                 mac = data.mac;
                 clients.set(mac, { socket, jsonStream });
 
-                raspberriesManager.setOnline(mac, data.ip, socket);
+                raspberriesManager.setOnline(mac, {
+                    ip: data.ip,
+                    screenState: data.screenState,
+                });
                 return;
+            }
+
+            if (data.type === 'update') {
+                raspberriesManager.update(mac, {
+                    screenState: data.screenState,
+                });
             }
 
             logger.warn('unsupported instruction by client', data);

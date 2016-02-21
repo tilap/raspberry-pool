@@ -40,7 +40,7 @@ export function getAll() {
 
 /* FROM raspberries */
 
-export function setOnline(mac, ip, socket) {
+export function setOnline(mac, info) {
     let raspberry = getByMac(mac);
     let unknownMac = false;
     if (!raspberry) {
@@ -53,12 +53,21 @@ export function setOnline(mac, ip, socket) {
         logger.info('raspberry online', { mac });
     }
 
-    Object.assign(raspberry, {
-        online: mac,
-        ip: ip,
-    });
+    raspberry.online = mac;
+    Object.assign(raspberry, info);
 
     webSocket.broadcast(`raspberry:${unknownMac ? 'add' : 'update'}`, raspberry);
+}
+
+export function update(mac, info) {
+    let raspberry = getByMac(mac);
+    if (!raspberry) {
+        // should not happen...
+        return;
+    }
+
+    Object.assign(raspberry, info);
+    webSocket.broadcast(`raspberry:update`, raspberry);
 }
 
 export function setOffline(mac) {

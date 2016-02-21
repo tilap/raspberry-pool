@@ -31,9 +31,20 @@ export default class RaspberryComponent extends Component {
         return (<div className="raspberry">
             <h2 className="text-title">{raspberry.data.name}</h2>
             <Spinner active={raspberry.saving} />
-            <span className={`status label ${raspberry.online ? 'success' : 'warning'}`}>
-                {raspberry.online ? `${raspberry.ip} ${raspberry.online}` : 'Offline'}
-            </span>
+            <div className="status-container">
+                <span className={`status label ${raspberry.online ? 'success' : 'warning'}`}>
+                    {raspberry.online ? `${raspberry.ip} ${raspberry.online}` : 'Offline'}
+                </span>
+                {
+                    !raspberry.online ? '' :
+                    <span className="screen-status">
+                        <span className="icon"/>
+                        <span className={`label ${raspberry.screenState === 'on' ? 'success' : 'warning'}`}>
+                            {raspberry.screenState === 'on' ? 'On' : 'Off'}
+                        </span>
+                    </span>
+                }
+            </div>
 
             <div className="input text">
                 <input type="url" required
