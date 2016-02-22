@@ -1,7 +1,7 @@
 {
   "name": "raspberry-pool", 
   "private": true, 
-  "version": "3.0.0", 
+  "version": "3.0.1", 
   "description": "Raspberry pool", 
   "main": "./lib/index.js", 
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)", 
