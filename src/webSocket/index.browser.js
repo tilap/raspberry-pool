@@ -22,9 +22,11 @@ export function start(config) {
 
     socket.on('connect', () => {
         logger.success('connected', { transport: socket.io.engine.transport.name }, { transport: [] });
+        document.getElementById('disconnected').style.display = 'none';
     });
     socket.on('disconnect', () => {
         logger.warn('disconnected');
+        document.getElementById('disconnected').style.display = 'block';
     });
 }
 

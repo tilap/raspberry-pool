@@ -63,6 +63,7 @@ export function start(config) {
                 raspberriesManager.update(mac, {
                     screenState: data.screenState,
                 });
+                return;
             }
 
             logger.warn('unsupported instruction by client', data);

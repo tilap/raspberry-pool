@@ -6,6 +6,7 @@ $body-background = #f4e8d8
 @require 'turaco-styl/index';
 @require 'turaco-styl/components/index';
 @require 'spinner';
+@require 'disconnected';
 
 .raspberry-list
     display flex
@@ -21,11 +22,13 @@ $body-background = #f4e8d8
         z-depth-1()
         background #fff
         flex 1
-        min-width 450px
+        min-width 500px
         max-width 700px
 
         @media (max-width: 500px)
             min-width 100%
+        @media (min-width: 1500px)
+            min-width 550px
 
     fieldset
         margin-left 0

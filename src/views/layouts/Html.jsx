@@ -37,12 +37,15 @@ export default class Html extends Component {
                 ></script>
             </head>
             <body>
-            <div id="app" dangerouslySetInnerHTML={{ __html: this.props.body }} />
-            <div dangerouslySetInnerHTML={{ __html: production ? '<script defer src="/main-sfx.js"></script>' :
-                `<script src="/jspm_packages/system.js"></script>
-                <script src="/config.js"></script>
-                <script src="/index.bundle.js"></script>
-                <script>System.import('js/index.js').then(function(main) { return main.default() })</script>` }}></div>
+                <div id="disconnected"><div>disconnected</div></div>
+                <div id="app" dangerouslySetInnerHTML={{ __html: this.props.body }} />
+                <div dangerouslySetInnerHTML={{ __html: production ? '<script defer src="/main-sfx.js"></script>' :
+                    `<script src="/jspm_packages/system.js"></script>
+                    <script src="/config.js"></script>
+                    <script src="/index.bundle.js"></script>
+                    <script>System.import('js/index.js').then(function(main) { return main.default() })</script>` }}
+                >
+                </div>
             </body>
             </html>
         );

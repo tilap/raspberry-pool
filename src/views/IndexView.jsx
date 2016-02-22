@@ -56,6 +56,7 @@ class IndexView extends Component {
         const title = this.context.context.t('raspberry-pool.title');
         this.context.setTitle(title);
         return (<div>
+
             <UnknownRaspberryList
                 raspberries={unknownRaspberries}
                 saveUnknown={this.saveUnknown}
