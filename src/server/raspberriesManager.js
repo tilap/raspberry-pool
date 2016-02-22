@@ -58,7 +58,7 @@ export function setOnline(mac, configTime, info) {
 
     webSocket.broadcast(`raspberry:${unknownMac ? 'add' : 'update'}`, raspberry);
 
-    if (raspberry.data.config.time !== configTime) {
+    if (raspberry.data && raspberry.data.config.time !== configTime) {
         raspberries.emit(raspberry.online, {
             type: 'change-config',
             config: raspberry.data.config,
