@@ -6,7 +6,7 @@ import { lt as semverLt } from 'semver';
 
 const logger = new ConsoleLogger('app.tcp-server', LogLevel.INFO);
 
-const MIN_SUPPORTED_VERSION = '3.0.0';
+const MIN_SUPPORTED_VERSION = '4.0.0';
 const clients = new Map();
 
 export function start(config) {
