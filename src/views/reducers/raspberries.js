@@ -1,4 +1,5 @@
-import { UPDATE_ALL, ADD_RASPBERRY, UPDATE_RASPBERRY, REMOVE_RASPBERRY, SAVING_RASPBERRY, SAVED_RASPBERRY, SENDING_ACTION_RASPBERRY, ACTION_DONE_RASPBERRY } from '../actions/raspberry';
+import { UPDATE_ALL, ADD_RASPBERRY, UPDATE_RASPBERRY, REMOVE_RASPBERRY, SAVING_RASPBERRY, SAVED_RASPBERRY, SENDING_ACTION_RASPBERRY, ACTION_SENT_RASPBERRY } from '../actions/raspberry';
+import { updateFromAction } from '../../common/raspberryActionManager';
 
 function raspberry(raspberry, action) {
     if (action.type === ADD_RASPBERRY) {
@@ -32,14 +33,15 @@ function raspberry(raspberry, action) {
                     [action.action]: 'sending',
                 },
             };
-        case ACTION_DONE_RASPBERRY:
+        case ACTION_SENT_RASPBERRY:
             return {
                 ...raspberry,
                 ...action.changes,
                 actions: {
                     ...raspberry.actions,
-                    [action.action]: action.result,
+                    [action.action]: null,
                 },
+                ...updateFromAction(action.action),
             };
         default:
             return raspberry;
@@ -47,7 +49,6 @@ function raspberry(raspberry, action) {
 }
 
 export default function raspberries(raspberries = [], action) {
-    console.log(action);
     switch (action.type) {
         case ADD_RASPBERRY:
             return [
@@ -62,7 +63,7 @@ export default function raspberries(raspberries = [], action) {
         case SAVING_RASPBERRY:
         case SAVED_RASPBERRY:
         case SENDING_ACTION_RASPBERRY:
-        case ACTION_DONE_RASPBERRY:
+        case ACTION_SENT_RASPBERRY:
             return raspberries.map(r => raspberry(r, action));
         default:
             return raspberries;

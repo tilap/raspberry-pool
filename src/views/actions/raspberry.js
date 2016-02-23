@@ -5,7 +5,7 @@ export const REMOVE_RASPBERRY = 'REMOVE_RASPBERRY';
 export const SAVING_RASPBERRY = 'SAVING_RASPBERRY';
 export const SAVED_RASPBERRY = 'SAVED_RASPBERRY';
 export const SENDING_ACTION_RASPBERRY = 'SENDING_ACTION_RASPBERRY';
-export const ACTION_DONE_RASPBERRY = 'ACTION_DONE_RASPBERRY';
+export const ACTION_SENT_RASPBERRY = 'ACTION_SENT_RASPBERRY';
 
 import * as webSocket from '../../webSocket/index';
 
@@ -61,9 +61,9 @@ function sendingAction(raspberry, action) {
     };
 }
 
-function actionDone(raspberry, action, result) {
+function actionSent(raspberry, action, result) {
     return {
-        type: ACTION_DONE_RASPBERRY,
+        type: ACTION_SENT_RASPBERRY,
         id: raspberry.id,
         action: action,
         result: result,
@@ -81,7 +81,7 @@ export function changeConfig(dispatch, raspberry, newConfig) {
 export function sendAction(dispatch, raspberry, action) {
     dispatch(sendingAction(raspberry, action));
     webSocket.sendAction(raspberry, action, (result) => {
-        dispatch(actionDone(raspberry, action, result));
+        dispatch(actionSent(raspberry, action, result));
     });
 }
 
@@ -97,7 +97,7 @@ export function saveUnknown(dispatch, raspberry, { name }) {
 export function broadcastAction(dispatch, raspberries, action) {
     raspberries.forEach(raspberry => dispatch(sendingAction(raspberry, action)));
     webSocket.broadcastAction(raspberries, action, (result) => {
-        raspberries.forEach(raspberry => dispatch(actionDone(raspberry, action, result)));
+        raspberries.forEach(raspberry => dispatch(actionSent(raspberry, action, result)));
     });
 }
 

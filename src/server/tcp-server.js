@@ -60,9 +60,14 @@ export function start(config) {
             }
 
             if (data.type === 'update') {
-                raspberriesManager.update(mac, {
-                    screenState: data.screenState,
+                const patch = {};
+                ['screenState', 'updating'].forEach(key => {
+                    if (data.hasOwnProperty(key)) {
+                        patch[key] = data[key];
+                    }
                 });
+
+                raspberriesManager.update(mac, patch);
                 return;
             }
 

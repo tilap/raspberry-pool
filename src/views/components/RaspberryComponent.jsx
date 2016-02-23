@@ -57,10 +57,10 @@ export default class RaspberryComponent extends Component {
                         <ul className="list">
                             {availableActions.map(action => (
                                 <li key={action.value}
-                                    onClick={() => sendAction(raspberry, action.value)}
+                                    onClick={() => !action.isInProgress(raspberry) && sendAction(raspberry, action.value)}
                                 >
                                     {action.name}
-                                    <Spinner active={raspberry.actions && raspberry.actions[action.value] === 'sending'} />
+                                    <Spinner active={raspberry.actions && raspberry.actions[action.value] === 'sending' || action.isInProgress(raspberry)} />
                                 </li>
                             ))}
                         </ul>

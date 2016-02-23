@@ -50,13 +50,23 @@ export function start(config) {
         });
 
         socket.on('raspberry:sendAction', (id, action, callback) => {
-            raspberriesManager.sendAction(id, action)
-                .then(() => callback());
+            const raspberry = raspberriesManager.sendAction(id, action);
+            if (raspberry) {
+                return callback(false);
+            }
+
+            socket.broadcast.emit('raspberry:update', raspberry);
+            callback();
         });
 
         socket.on('raspberry:broadcastAction', (ids, action, callback) => {
-            Promise.all(ids.map(id => raspberriesManager.sendAction(id, action)))
-                .then(() => callback());
+            ids.forEach(id => {
+                const raspberry = raspberriesManager.sendAction(id, action);
+                if (raspberry) {
+                    socket.broadcast.emit('raspberry:update', raspberry);
+                }
+            });
+            callback();
         });
 
         socket.on('raspberry:add', (mac, name, callback) => {

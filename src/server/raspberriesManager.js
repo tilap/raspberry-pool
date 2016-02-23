@@ -1,7 +1,8 @@
+import { ConsoleLogger, LogLevel } from 'nightingale';
 import * as data from './raspberriesData';
+import { updateFromAction } from '../common/raspberryActionManager';
 import * as raspberries from './tcp-server';
 import * as webSocket from '../webSocket';
-import { ConsoleLogger, LogLevel } from 'nightingale';
 
 const logger = new ConsoleLogger('app.raspberriesManager', LogLevel.INFO);
 const map = new Map();
@@ -51,6 +52,9 @@ export function setOnline(mac, configTime, info) {
         mapByMac.set(mac, raspberry);
     } else {
         logger.info('raspberry online', { mac });
+        if (raspberry.updating) {
+            raspberry.updating = false;
+        }
     }
 
     raspberry.online = mac;
@@ -71,6 +75,10 @@ export function update(mac, info) {
     if (!raspberry) {
         // should not happen...
         return;
+    }
+
+    if (info.screenState && raspberry.nextExpectedScreenState === info.screenState) {
+        raspberry.nextExpectedScreenState = null;
     }
 
     Object.assign(raspberry, info);
@@ -127,7 +135,7 @@ export function add(mac, name) {
     return raspberry;
 }
 
-export function sendAction(id, action, callback) {
+export function sendAction(id, action) {
     const raspberry = getById(id);
     if (!raspberry || !raspberry.registered) {
         logger.warn('unknown raspberry', { id });
@@ -135,6 +143,7 @@ export function sendAction(id, action, callback) {
         return Promise.resolve();
     }
 
+    Object.assign(raspberry, updateFromAction(action));
     raspberries.emit(raspberry.online, { type: 'action', action });
-    return Promise.resolve();
+    return raspberry;
 }
