@@ -50,7 +50,13 @@ export function start(config) {
         });
 
         socket.on('raspberry:sendAction', (id, action, callback) => {
-            raspberriesManager.sendAction(id, action, callback);
+            raspberriesManager.sendAction(id, action)
+                .then(() => callback());
+        });
+
+        socket.on('raspberry:broadcastAction', (ids, action, callback) => {
+            Promise.all(ids.map(id => raspberriesManager.sendAction(id, action)))
+                .then(() => callback());
         });
 
         socket.on('raspberry:add', (mac, name, callback) => {

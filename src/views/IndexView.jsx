@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Header from './components/HeaderComponent';
 import RaspberryList from './components/RaspberryListComponent';
 import UnknownRaspberryList from './components/UnknownRaspberryListComponent';
 import * as raspberriesActions from './actions/raspberry';
@@ -21,6 +22,7 @@ class IndexView extends Component {
         super(props);
         this.changeConfig = raspberriesActions.changeConfig.bind(null, props.dispatch);
         this.sendAction = raspberriesActions.sendAction.bind(null, props.dispatch);
+        this.broadcastAction = raspberriesActions.broadcastAction.bind(null, props.dispatch);
         this.saveUnknown = raspberriesActions.saveUnknown.bind(null, props.dispatch);
     }
 
@@ -56,7 +58,10 @@ class IndexView extends Component {
         const title = this.context.context.t('raspberry-pool.title');
         this.context.setTitle(title);
         return (<div>
-
+            <Header
+                raspberries={registeredRaspberries}
+                broadcastAction={this.broadcastAction}
+            />
             <UnknownRaspberryList
                 raspberries={unknownRaspberries}
                 saveUnknown={this.saveUnknown}

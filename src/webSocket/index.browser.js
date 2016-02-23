@@ -56,3 +56,9 @@ export function sendAction(raspberry, action, callback) {
 export function registerUnknown(raspberry, name, callback) {
     emit('raspberry:add', raspberry.id, name, callback);
 }
+
+
+export function broadcastAction(raspberries, action, callback) {
+    emit('raspberry:broadcastAction', raspberries.map(r => r.id), action, callback);
+}
+

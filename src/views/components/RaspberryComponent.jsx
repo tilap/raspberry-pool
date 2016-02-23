@@ -1,13 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 import Spinner from './SpinnerComponent';
-
-const actions = [
-    // { name: 'Test', value: 'test', isVisible: r => true },
-    { name: 'Refresh', value: 'refresh', isVisible: r => r.screenState === 'on' },
-    { name: 'Screen on', value: 'screen-on', isVisible: r => r.screenState === 'off' },
-    { name: 'Screen off', value: 'screen-off', isVisible: r => r.screenState === 'on' },
-];
+import actions from '../raspberryActions';
 
 export default class RaspberryComponent extends Component {
     static propTypes = {

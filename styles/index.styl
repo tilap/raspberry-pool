@@ -5,6 +5,7 @@ $body-background = #f4e8d8
 
 @require 'turaco-styl/index';
 @require 'turaco-styl/components/index';
+@require 'header';
 @require 'spinner';
 @require 'disconnected';
 
@@ -29,6 +30,10 @@ $body-background = #f4e8d8
             min-width 100%
         @media (min-width: 1500px)
             min-width 550px
+
+        .raspberry > .spinner
+            absolute bottom 20px right 20px
+
 
     fieldset
         margin-left 0
@@ -91,9 +96,6 @@ $body-background = #f4e8d8
                     transform rotate(45deg)
                 &.unavailable::after
                     transform rotate(-45deg)
-
-    > .spinner
-        absolute bottom 20px right 20px
 
 
     .button-container

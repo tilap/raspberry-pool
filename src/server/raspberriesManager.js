@@ -47,7 +47,7 @@ export function setOnline(mac, configTime, info) {
         unknownMac = true;
         logger.warn('unknown mac', { mac });
         raspberry = { id: mac };
-        map.set(raspberry.mac, raspberry);
+        map.set(raspberry.id, raspberry);
         mapByMac.set(mac, raspberry);
     } else {
         logger.info('raspberry online', { mac });
@@ -132,9 +132,9 @@ export function sendAction(id, action, callback) {
     if (!raspberry || !raspberry.registered) {
         logger.warn('unknown raspberry', { id });
         // should not happen...
-        return callback();
+        return Promise.resolve();
     }
 
     raspberries.emit(raspberry.online, { type: 'action', action });
-    callback();
+    return Promise.resolve();
 }

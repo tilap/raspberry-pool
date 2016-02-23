@@ -14,7 +14,7 @@ export function start(config) {
         logger.info('client connected');
         let mac;
         const jsonStream = createStream(socket);
-        const pingInterval = setInterval(() => jsonStream.write({ type: 'ping' }), 10000);
+        const pingInterval = setInterval(() => jsonStream.write({ type: 'ping' }), 30000);
 
         socket.on('end', () => {
             logger.info('client disconnected');

@@ -93,3 +93,11 @@ export function saveUnknown(dispatch, raspberry, { name }) {
         }
     });
 }
+
+export function broadcastAction(dispatch, raspberries, action) {
+    raspberries.forEach(raspberry => dispatch(sendingAction(raspberry, action)));
+    webSocket.broadcastAction(raspberries, action, (result) => {
+        raspberries.forEach(raspberry => dispatch(actionDone(raspberry, action, result)));
+    });
+}
+
