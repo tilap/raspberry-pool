@@ -30,6 +30,7 @@ export function changeConfig(id, config) {
     // TODO configManager
     config = Object.assign({}, {
         time: Date.now(),
+        display: config.display || 'kweb3',
         url: config.url.trim(),
     });
     map.get(id).config = config;

@@ -21,12 +21,21 @@ export default class RaspberryComponent extends Component {
         const { raspberry, changeConfig, sendAction } = this.props;
 
         let url;
+        let display;
         if (this.state.url != null) {
             url = this.state.url;
         } else if (raspberry.saving) {
             url = this.state.lastUrl;
         } else {
             url = raspberry.data.config.url;
+        }
+
+        if (this.state.display != null) {
+            display = this.state.display;
+        } else if (raspberry.saving) {
+            display = this.state.lastDisplay;
+        } else {
+            display = raspberry.data.config.display;
         }
 
         const availableActions = actions.filter(action => action.isVisible(raspberry));
@@ -74,10 +83,15 @@ export default class RaspberryComponent extends Component {
                     <div className="col" style={{ width: '100px', 'flex-basis': '100px', 'flex-grow': 0 }}>
                         <div className="input select">
                             <select
+                                value={display || 'kweb3'}
                                 id={`raspberry-select-${raspberry.id}`}
                                 className={`has-value`}
+                                onChange={(e) => this.setState({
+                                    display: raspberry.data.config.display === e.target.value ? null : e.target.value
+                                })}
                             >
-                                <option>kweb3</option>
+                                <option value="kweb3">kweb3</option>
+                                <option value="livestreamer">livestreamer</option>
                             </select>
                             <label htmlFor={`raspberry-select-${raspberry.id}`}>Display</label>
                         </div>
@@ -100,10 +114,11 @@ export default class RaspberryComponent extends Component {
                 </div>
 
                 <div className="button-container center">
-                    <button type="button" disabled={raspberry.saving || !this.state.url} onClick={() => {
-                        const url = this.state.url;
-                        this.setState({ url: null, lastUrl: url });
-                        changeConfig(raspberry, { url });
+                    <button type="button" disabled={raspberry.saving || (this.state.url == null && this.state.display == null)} onClick={() => {
+                        const display = this.state.display || raspberry.data.config.display;
+                        const url = this.state.url || raspberry.data.config.url;
+                        this.setState({ url: null, lastUrl: url, display: null, lastDisplay: display });
+                        changeConfig(raspberry, { display, url });
                     }}>Save</button>
                 </div>
             </fieldset>
