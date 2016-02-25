@@ -85,11 +85,16 @@ export function sendAction(dispatch, raspberry, action) {
     });
 }
 
-export function saveUnknown(dispatch, raspberry, { name }) {
+export function saveUnknown(dispatch, raspberry, { name, addOrReplace, id }) {
     dispatch(saving(raspberry));
-    webSocket.registerUnknown(raspberry, name, (raspberry) => {
-        if (raspberry) {
-            dispatch(saved(raspberry, raspberry));
+    webSocket.registerUnknown(raspberry, { name, addOrReplace, id }, (newRaspberry) => {
+        if (newRaspberry) {
+            if (newRaspberry.id !== raspberry.id) {
+                dispatch(remove(raspberry.id));
+                dispatch(update(newRaspberry));
+            } else {
+                dispatch(saved(newRaspberry, newRaspberry));
+            }
         }
     });
 }

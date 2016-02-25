@@ -57,3 +57,21 @@ export function addNew(id, mac, name) {
 
     return newRaspberryItem;
 }
+
+export function replaceMacAddresses(id, newMacAddresses) {
+    if (!map.has(id)) {
+        throw new Error('Invalid id');
+    }
+
+    map.get(id).macAddresses = newMacAddresses;
+    save();
+}
+
+export function addMacAddress(id, newMacAddress) {
+    if (!map.has(id)) {
+        throw new Error('Invalid id');
+    }
+
+    map.get(id).macAddresses.push(newMacAddress);
+    save();
+}

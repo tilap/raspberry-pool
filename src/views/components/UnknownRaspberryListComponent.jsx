@@ -5,6 +5,7 @@ import UnknownRaspberry from './UnknownRaspberryComponent';
 export default class UnknownRaspberryListComponent extends Component {
     static propTypes = {
         raspberries: PropTypes.array.isRequired,
+        offlineRaspberries: PropTypes.array.isRequired,
         saveUnknown: PropTypes.func.isRequired,
         sendAction: PropTypes.func.isRequired,
     };
@@ -12,7 +13,7 @@ export default class UnknownRaspberryListComponent extends Component {
     shouldComponentUpdate = shouldPureComponentUpdate;
 
     render() {
-        const { raspberries, saveUnknown, sendAction } = this.props;
+        const { raspberries, offlineRaspberries, saveUnknown, sendAction } = this.props;
 
         if (!raspberries.length) {
             return <div/>;
@@ -20,7 +21,12 @@ export default class UnknownRaspberryListComponent extends Component {
 
         return (<ul className="raspberry-list">
             {raspberries.map(raspberry => <li key={raspberry.id} className="raspberry-item">
-                <UnknownRaspberry raspberry={raspberry} saveUnknown={saveUnknown} sendAction={sendAction} />
+                <UnknownRaspberry
+                    raspberry={raspberry}
+                    offlineRaspberries={offlineRaspberries}
+                    saveUnknown={saveUnknown}
+                    sendAction={sendAction}
+                />
             </li>)}
         </ul>);
     }

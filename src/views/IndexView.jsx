@@ -64,6 +64,7 @@ class IndexView extends Component {
             />
             <UnknownRaspberryList
                 raspberries={unknownRaspberries}
+                offlineRaspberries={registeredRaspberries.filter(r => !r.online)}
                 saveUnknown={this.saveUnknown}
                 sendAction={this.sendAction}
             />

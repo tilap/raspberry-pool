@@ -46,7 +46,7 @@ export function setOnline(mac, configTime, info) {
     let unknownMac = false;
     if (!raspberry) {
         unknownMac = true;
-        logger.warn('unknown mac', { mac });
+        logger.warn('unknown mac, adding', { mac });
         raspberry = { id: mac };
         map.set(raspberry.id, raspberry);
         mapByMac.set(mac, raspberry);
@@ -122,16 +122,40 @@ export function changeConfig(id, config) {
     return newConfig;
 }
 
-export function add(mac, name) {
+export function add(mac, { name, addOrReplace, id }) {
+    logger.log('add', { mac, name, addOrReplace, id });
     const raspberry = getByMac(mac);
-    if (!raspberry || !raspberry.registered) {
-        logger.warn('unknown raspberry', { mac });
-        // should not happen...
-        return;
+    if (!raspberry) {
+        return logger.warn('unknown raspberry', { mac });
+    } else if (raspberry.registered) {
+        return logger.warn('raspberry already registered', { mac });
     }
 
-    raspberry.registered = true;
-    raspberry.data = data.addNew(raspberry.id, mac, name);
+    if (addOrReplace) {
+        mapByMac.delete(mac);
+        map.delete(mac);
+        const existing = map.get(id);
+        if (!existing) {
+            return logger.warn('existing not found', { id });
+        }
+
+        if (addOrReplace === 'replace') {
+            existing.data.macAddresses.forEach(mac => mapByMac.delete(mac));
+            data.replaceMacAddresses(id, [mac]);
+        } else {
+            data.addMacAddress(id, mac);
+        }
+        mapByMac.set(mac, existing);
+        existing.online = raspberry.online;
+        existing.ip = raspberry.ip;
+        existing.screenState = raspberry.screenState;
+
+        return existing;
+    } else {
+        raspberry.registered = true;
+        raspberry.data = data.addNew(raspberry.id, mac, name);
+    }
+
     return raspberry;
 }
 
