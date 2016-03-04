@@ -1,0 +1,13 @@
+{
+    "applicationName": "Raspberry Pool",
+    "availableLanguages": [
+        "en",
+        "fr"
+    ],
+    "routeTranslations": {
+        "no-config": {
+            "en": "no-config",
+            "fr": "no-config"
+        }
+    }
+}

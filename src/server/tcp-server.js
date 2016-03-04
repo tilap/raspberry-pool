@@ -75,8 +75,9 @@ export function start(config) {
         });
     });
 
-    server.listen(config.get('tcpSocketPort'), () => {
-        logger.info('Listening', { port: config.get('tcpSocketPort') });
+    const port = config.get('tcpSocketPort');
+    server.listen(port, () => {
+        logger.info('Listening', { port });
     });
 }
 

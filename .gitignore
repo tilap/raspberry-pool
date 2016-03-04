@@ -2,8 +2,7 @@ public/js
 public/**/*.map
 public/**/*.css
 public/**/*.js
-!public/config.js
-jspm_packages
+!public/config
 src/config/local.yml
 lib/config/local.yml
 
@@ -13,7 +12,6 @@ lib/config/local.yml
 /build
 /config
 node_modules
-jspm_packages
 /data
 
 /.settings

@@ -205,7 +205,7 @@ def doDeploy(release, version, hash):
     with cd('%s/releases/%s' % (env.directory, release)):
         with settings(warn_only=True):
             run('rsync -a %s/current/node_modules/ node_modules/' % env.directory)
-            run('rsync -a %s/current/jspm_packages/ jspm_packages/' % env.directory)
+            run('rsync -a %s/current/browser/node_modules/ browser/node_modules/' % env.directory)
 
         for path in env.shared_paths:
             with settings(warn_only=True):
@@ -214,8 +214,9 @@ def doDeploy(release, version, hash):
 
         with cd('%s/releases/%s' % (env.directory, release)):
             run('npm install ; npm prune')
-            run('jspm clean ; jspm install')
-            run('make build')
+            with cd('%s/releases/%s/browser' % (env.directory, release)):
+                run('npm prune ; npm install')
+            run('make build-prod')
 
 def cleanReleases():
     with hide('running', 'stdout'):

@@ -77,8 +77,8 @@ export function start(config) {
                 callback(newRaspberry);
                 socket.broadcast.emit('raspberry:update', newRaspberry);
                 if (newRaspberry.id !== mac) {
-                    // replaced
-                    socket.broadcast.emit('raspberry:delete', mac);
+                    socket.broadcast.emit('raspberry:update', newRaspberry);
+
                 }
             }
         });

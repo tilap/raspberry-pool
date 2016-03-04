@@ -30,6 +30,7 @@ export default class Html extends Component {
                 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,500,300,100,500italic,400italic,700italic" rel="stylesheet" type="text/css" />
                 <link rel="stylesheet" href="/index.css" />
                 <style id="css" dangerouslySetInnerHTML={{ __html: this.props.css }} />
+                <script defer src="/bundle.js"></script>
                 <script dangerouslySetInnerHTML={{ __html:
                     `window.VERSION = '${this.props.context.config.get('version')}';`
                     + `window.initialData = ${JSON.stringify(this.props.initialData)}`,
@@ -39,15 +40,18 @@ export default class Html extends Component {
             <body>
                 <div id="disconnected"><div>disconnected</div></div>
                 <div id="app" dangerouslySetInnerHTML={{ __html: this.props.body }} />
-                <div dangerouslySetInnerHTML={{ __html: production ? '<script defer src="/main-sfx.js"></script>' :
-                    `<script src="/jspm_packages/system.js"></script>
-                    <script src="/config.js"></script>
-                    <script src="/index.bundle.js"></script>
-                    <script>System.import('js/index.js').then(function(main) { return main.default() })</script>` }}
-                >
-                </div>
+
             </body>
             </html>
         );
     }
 }
+/*
+<div dangerouslySetInnerHTML={{ __html: production ? '<script defer src="/main-sfx.js"></script>' :
+                    `<script defer src="/bundle.js"></script>` ||
+                    `<script defer src="/jspm_packages/system.js"></script>
+                    <script defer src="/config.js"></script>
+                    <script defer src="/index.js"></script>` }}
+                >
+                </div>
+ */
