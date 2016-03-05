@@ -1,7 +1,7 @@
 {
   "name": "raspberry-pool", 
   "private": true, 
-  "version": "3.6.0-beta3", 
+  "version": "3.6.0", 
   "description": "Raspberry pool", 
   "main": "./lib/index.js", 
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)", 
@@ -28,7 +28,7 @@
     "turaco-styl": "0.5.0"
   }, 
   "devDependencies": {
-    "auk-dev": "^0.4.0", 
+    "auk-dev": "^1.0.0", 
     "babel-cli": "^6.5.1", 
     "eslint": "^1.10.3", 
     "eslint-config-partridge": "^3.0.1"
