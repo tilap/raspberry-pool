@@ -49,16 +49,12 @@ export function changeConfig(raspberry, config, callback) {
     emit('raspberry:changeConfig', raspberry.id, config, callback);
 }
 
-export function sendAction(raspberry, action, callback) {
-    emit('raspberry:sendAction', raspberry.id, action, callback);
+export function sendAction(raspberries, action, callback) {
+    emit('raspberry:sendAction', raspberries.map(r => r.id), action, callback);
 }
 
 export function registerUnknown(raspberry, name, callback) {
     emit('raspberry:add', raspberry.id, name, callback);
 }
 
-
-export function broadcastAction(raspberries, action, callback) {
-    emit('raspberry:broadcastAction', raspberries.map(r => r.id), action, callback);
-}
 

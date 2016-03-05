@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 import Spinner from './SpinnerComponent';
-import actions from '../raspberryActions';
+import Actions from './raspberry/ActionsComponent';
 
 export default class RaspberryComponent extends Component {
     static propTypes = {
@@ -38,8 +38,6 @@ export default class RaspberryComponent extends Component {
             display = raspberry.data.config.display;
         }
 
-        const availableActions = actions.filter(action => action.isVisible(raspberry));
-
         return (<div className="raspberry">
             <h2 className="text-title">
                 {raspberry.data.name}
@@ -59,23 +57,7 @@ export default class RaspberryComponent extends Component {
                 }
             </div>
 
-            {!raspberry.online || !availableActions.length ? '' :
-                <div className="actions">
-                    <div className="dropdown button">
-                        Actions
-                        <ul className="list">
-                            {availableActions.map(action => (
-                                <li key={action.value}
-                                    onClick={() => !action.isInProgress(raspberry) && sendAction(raspberry, action.value)}
-                                >
-                                    {action.name}
-                                    <Spinner active={raspberry.actions && raspberry.actions[action.value] === 'sending' || action.isInProgress(raspberry)} />
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            }
+            <Actions raspberries={[raspberry]} sendAction={sendAction} />
 
             <fieldset>
                 <legend>Config</legend>

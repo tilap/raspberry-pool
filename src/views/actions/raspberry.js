@@ -78,10 +78,10 @@ export function changeConfig(dispatch, raspberry, newConfig) {
     });
 }
 
-export function sendAction(dispatch, raspberry, action) {
-    dispatch(sendingAction(raspberry, action));
-    webSocket.sendAction(raspberry, action, (result) => {
-        dispatch(actionSent(raspberry, action, result));
+export function sendAction(dispatch, raspberries, action) {
+    raspberries.forEach(raspberry => dispatch(sendingAction(raspberry, action)));
+    webSocket.sendAction(raspberries, action, (result) => {
+        raspberries.forEach(raspberry => dispatch(actionSent(raspberry, action, result)));
     });
 }
 
@@ -98,11 +98,3 @@ export function saveUnknown(dispatch, raspberry, { name, addOrReplace, id }) {
         }
     });
 }
-
-export function broadcastAction(dispatch, raspberries, action) {
-    raspberries.forEach(raspberry => dispatch(sendingAction(raspberry, action)));
-    webSocket.broadcastAction(raspberries, action, (result) => {
-        raspberries.forEach(raspberry => dispatch(actionSent(raspberry, action, result)));
-    });
-}
-

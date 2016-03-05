@@ -22,7 +22,6 @@ class IndexView extends Component {
         super(props);
         this.changeConfig = raspberriesActions.changeConfig.bind(null, props.dispatch);
         this.sendAction = raspberriesActions.sendAction.bind(null, props.dispatch);
-        this.broadcastAction = raspberriesActions.broadcastAction.bind(null, props.dispatch);
         this.saveUnknown = raspberriesActions.saveUnknown.bind(null, props.dispatch);
     }
 
@@ -60,7 +59,7 @@ class IndexView extends Component {
         return (<div>
             <Header
                 raspberries={registeredRaspberries}
-                broadcastAction={this.broadcastAction}
+                sendAction={this.sendAction}
             />
             <UnknownRaspberryList
                 raspberries={unknownRaspberries}
