@@ -28,7 +28,6 @@ class IndexView extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
         this._handlerHello = on('hello', ({ version, raspberries }) => {
-            console.log(version);
             if (version !== window.VERSION) {
                 return location.reload(true);
             }
@@ -57,6 +56,7 @@ class IndexView extends Component {
         const title = this.context.context.t('raspberry-pool.title');
         this.context.setTitle(title);
         return (<div>
+            <div id="disconnected"><div>disconnected</div></div>
             <Header
                 raspberries={registeredRaspberries}
                 sendAction={this.sendAction}

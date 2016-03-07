@@ -3,3 +3,6 @@ common:
         no-config:
             en: no-config
             fr: no-config
+        install:
+            en: install
+            fr: install

@@ -5,7 +5,7 @@
     "alp": "^1.2.0",
     "babel-regenerator-runtime": "^6.5.0",
     "ibex": "^1.0.1",
-    "ibex-config": "^2.0.0-beta3",
+    "ibex-config": "^2.0.0",
     "ibex-language": "^1.1.0",
     "ibex-logger": "^1.2.0",
     "ibex-react-redux": "^2.3.1",

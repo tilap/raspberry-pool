@@ -8,7 +8,7 @@ import translate from 'ibex-translate';
 import { start as startWebSocket } from './webSocket/index';
 // import 'text'; //to remove
 
-import * as appDescriptor from './views/index';
+import * as moduleDescriptor from './views/index';
 
 function ready() {
     return new Promise((resolve) => {
@@ -22,19 +22,22 @@ function ready() {
 
 ready()
     .then(async function main() {
-        console.log('ready');
-        const app = new Ibex();
-        app.appVersion = window.VERSION;
-        await config('config')(app);
-        logger(app);
-        startWebSocket(app.config);
-        language(app);
-        await translate('locales')(app);
-        await reactredux({
-            appDescriptor,
-            initialData: window.initialData,
-            element: document.getElementById('app'),
-        })(app);
+        if (window.MODULE_IDENTIFIER = 'raspberries-list') {
+            const app = new Ibex();
+            app.appVersion = window.VERSION;
+            await config('config')(app);
+            logger(app);
+            startWebSocket(app.config);
+            language(app);
+            await translate('locales')(app);
+            await reactredux(
+                {
+                    moduleDescriptor,
+                    initialData: window.initialData,
+                    element: document.getElementById('app'),
+                }
+            )(app);
 
-        await app.run();
+            await app.run();
+        }
     }).catch(err => console.log(err));
