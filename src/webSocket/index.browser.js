@@ -22,15 +22,30 @@ export function start(config) {
 
     socket.on('connect', () => {
         logger.success('connected', { transport: socket.io.engine.transport.name }, { transport: [] });
-        document.getElementById('disconnected').style.display = 'none';
+
+        const disconnected = document.getElementById('disconnected');
+        if (disconnected) {
+            disconnected.style.display = 'none';
+        }
     });
+
     socket.on('disconnect', () => {
         logger.warn('disconnected');
-        document.getElementById('disconnected').style.display = 'block';
+
+        const disconnected = document.getElementById('disconnected');
+        if (disconnected) {
+            disconnected.style.display = 'block';
+        }
+    });
+
+    socket.on('hello', ({ version }) => {
+        if (version !== window.VERSION) {
+            return location.reload(true);
+        }
     });
 }
 
-function emit(...args) {
+export function emit(...args) {
     logger.debug('emit', { args });
     return socket.emit(...args);
 }

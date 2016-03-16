@@ -1,4 +1,4 @@
-include node_modules/auk-dev/tasks.mk
+include node_modules/alp-dev/tasks.mk
 
 install:
 	npm install

@@ -9,7 +9,7 @@ let io;
 
 export function broadcast(type, data) {
     logger.info('broadcast', { type, data });
-    io.emit(type, data);
+    io.to('raspberries').emit(type, data);
 }
 
 const dirname = __dirname;
@@ -32,11 +32,16 @@ export function start(config) {
     io = socketio(server);
     io.on('connection', socket => {
         logger.info('connected', { id: socket.id });
-        socket.emit('hello', {
-            version: config.get('version'),
-            raspberries: raspberriesManager.getAll(),
+        socket.emit('hello', { version: config.get('version') });
+
+        socket.on('subscribe:raspberries', (callback) => {
+            socket.join('raspberries');
+            callback({ raspberries: raspberriesManager.getAll() });
         });
 
+        socket.on('unsubscribe:raspberries', () => {
+            socket.leave('raspberries');
+        });
 
         socket.on('raspberry:changeConfig', (id, config, callback) => {
             const newConfig = raspberriesManager.changeConfig(id, config, callback);
@@ -45,7 +50,7 @@ export function start(config) {
             } else {
                 callback(newConfig);
                 const raspberry = raspberriesManager.getById(id);
-                socket.broadcast.emit('raspberry:update', raspberry);
+                socket.broadcast.to('raspberries').emit('raspberry:update', raspberry);
             }
         });
 
@@ -53,7 +58,7 @@ export function start(config) {
             ids.forEach(id => {
                 const raspberry = raspberriesManager.sendAction(id, action);
                 if (raspberry) {
-                    socket.broadcast.emit('raspberry:update', raspberry);
+                    socket.broadcast.to('raspberries').emit('raspberry:update', raspberry);
                 }
             });
             callback();
@@ -65,10 +70,9 @@ export function start(config) {
                 callback(false);
             } else {
                 callback(newRaspberry);
-                socket.broadcast.emit('raspberry:update', newRaspberry);
+                socket.broadcast.to('raspberries').emit('raspberry:update', newRaspberry);
                 if (newRaspberry.id !== mac) {
-                    socket.broadcast.emit('raspberry:update', newRaspberry);
-
+                    socket.broadcast.to('raspberries').emit('raspberry:update', newRaspberry);
                 }
             }
         });

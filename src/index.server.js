@@ -1,12 +1,12 @@
-import Auk from 'auk';
-import reactredux from 'auk-react-redux';
-import routerBuilder from './routerBuilder';
+import Alp from 'alp';
+import reactredux from 'alp-react-redux';
+import routerBuilder from './common/routerBuilder';
 import Html from './views/layouts/Html';
 import controllers from './server/controllers';
 import { start as startTcpServer } from './server/tcp-server';
 import { start as startWebsocket } from './webSocket';
 
-const app = new Auk(__dirname, {
+const app = new Alp(__dirname, {
     argv: ['webSocketPort', 'tcpSocketPort'],
 });
 reactredux(Html)(app);

@@ -4,7 +4,7 @@ import Header from './components/HeaderComponent';
 import RaspberryList from './components/RaspberryListComponent';
 import UnknownRaspberryList from './components/UnknownRaspberryListComponent';
 import * as raspberriesActions from './actions/raspberry';
-import { on, off } from '../webSocket/index';
+import { emit, on, off } from '../webSocket/index';
 
 class IndexView extends Component {
     static propTypes = {
@@ -27,10 +27,7 @@ class IndexView extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props;
-        this._handlerHello = on('hello', ({ version, raspberries }) => {
-            if (version !== window.VERSION) {
-                return location.reload(true);
-            }
+        emit('subscribe:raspberries', ({ raspberries }) => {
             dispatch(raspberriesActions.updateAll(raspberries));
         });
         this._handlerAdd = on('raspberry:add', (raspberry) => {
@@ -45,7 +42,7 @@ class IndexView extends Component {
     }
 
     componentWillUnmount() {
-        off('hello', this._handlerHello);
+        emit('unsubscribe:raspberries');
         off('raspberry:add', this._handlerAdd);
         off('raspberry:update', this._handlerUpdate);
         off('raspberry:delete', this._handlerDelete);
@@ -56,7 +53,6 @@ class IndexView extends Component {
         const title = this.context.context.t('raspberry-pool.title');
         this.context.setTitle(title);
         return (<div>
-            <div id="disconnected"><div>disconnected</div></div>
             <Header
                 raspberries={registeredRaspberries}
                 sendAction={this.sendAction}

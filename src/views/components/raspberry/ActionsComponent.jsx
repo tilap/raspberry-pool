@@ -29,27 +29,25 @@ export default class ActionsComponent extends Component {
             return <div className="actions" />;
         }
 
-        return (<div className="actions">
-            <div className="dropdown button">
-                Actions
-                <ul className="list">
-                    {availableActions.map(action => (
-                        <li key={action.value}
-                            onClick={() => {
-                                const raspberries = action.raspberries.filter(raspberry => !action.isInProgress(raspberry));
-                                if (raspberries.length) {
-                                    return sendAction(raspberries, action.value);
-                                }
-                            }}
-                        >
-                            {action.name}
-                            <Spinner active={!!raspberries.filter(raspberry => (
-                                raspberry.actions && raspberry.actions[action.value] === 'sending' || action.isInProgress(raspberry)
-                            )).length} />
-                        </li>
-                    ))}
-                </ul>
-            </div>
+        return (<div className="actions dropdown button">
+            Actions
+            <ul className="list">
+                {availableActions.map(action => (
+                    <li key={action.value}
+                        onClick={() => {
+                            const raspberries = action.raspberries.filter(raspberry => !action.isInProgress(raspberry));
+                            if (raspberries.length) {
+                                return sendAction(raspberries, action.value);
+                            }
+                        }}
+                    >
+                        {action.name}
+                        <Spinner active={!!raspberries.filter(raspberry => (
+                            raspberry.actions && raspberry.actions[action.value] === 'sending' || action.isInProgress(raspberry)
+                        )).length} />
+                    </li>
+                ))}
+            </ul>
         </div>);
     }
 }

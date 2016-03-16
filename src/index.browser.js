@@ -1,12 +1,10 @@
 import 'babel-regenerator-runtime';
-import Ibex from 'ibex';
-import config from 'ibex-config';
-import language from 'ibex-language';
-import logger from 'ibex-logger';
-import reactredux from 'ibex-react-redux';
-import translate from 'ibex-translate';
+import Alp from 'alp';
+import reactredux from 'alp-react-redux';
 import { start as startWebSocket } from './webSocket/index';
-// import 'text'; //to remove
+import { init } from 'alauda/web-app';
+import controllers from './browser/controllers';
+import routerBuilder from './common/routerBuilder';
 
 import * as moduleDescriptor from './views/index';
 
@@ -22,22 +20,18 @@ function ready() {
 
 ready()
     .then(async function main() {
-        if (window.MODULE_IDENTIFIER = 'raspberries-list') {
-            const app = new Ibex();
-            app.appVersion = window.VERSION;
-            await config('config')(app);
-            logger(app);
-            startWebSocket(app.config);
-            language(app);
-            await translate('locales')(app);
-            await reactredux(
-                {
-                    moduleDescriptor,
-                    initialData: window.initialData,
-                    element: document.getElementById('app'),
-                }
-            )(app);
+        const app = new Alp();
+        app.appVersion = window.VERSION;
+        await app.init();
+        startWebSocket(app.config);
+        const handler = app.createRouter(routerBuilder, controllers);
+        await reactredux({
+            moduleDescriptor: window.MODULE_IDENTIFIER == 'raspberries-list' ? moduleDescriptor : undefined,
+            initialData: window.initialData,
+            element: document.getElementById('app'),
+        })(app);
 
-            await app.run();
-        }
+        app.use(handler);
+        init(url => app.load(url));
+        await app.run();
     }).catch(err => console.log(err));

@@ -1,37 +1,31 @@
 {
-  "name": "raspberry-pool", 
-  "private": true, 
-  "version": "3.7.0-beta2", 
-  "description": "Raspberry pool", 
-  "main": "./lib/index.js", 
-  "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)", 
-  "license": "MIT", 
+  "name": "raspberry-pool",
+  "private": true,
+  "version": "3.7.0-beta2",
+  "description": "Raspberry pool",
+  "main": "./lib/index.js",
+  "author": "Christophe Hurpeau <christophe@hurpeau.com> (http://christophe.hurpeau.com/)",
+  "license": "MIT",
   "scripts": {
     "watch": "make w"
-  }, 
+  },
   "dependencies": {
-    "auk": "^4.0.0", 
-    "auk-config": "^2.0.0", 
-    "auk-errors": "^1.1.0", 
-    "auk-language": "^1.1.1", 
-    "auk-limosa": "^2.1.1", 
-    "auk-logger": "^1.4.0", 
-    "auk-params": "^2.0.0", 
-    "auk-react-redux": "^3.0.2", 
-    "auk-translate": "^1.1.0", 
-    "fody-html-layout": "^1.0.0", 
-    "json-tcp-socket": "^1.0.3", 
-    "koa-convert": "^1.2.0", 
-    "koa-static": "^2.0.0", 
-    "nightingale": "^3.0.5", 
-    "objectstream": "0.0.4", 
-    "react-pure-render": "^1.0.2", 
-    "turaco-styl": "0.5.0"
-  }, 
+    "alp": "^2.0.1",
+    "alp-react-redux": "^1.0.0",
+    "alp-translate": "^0.1.0",
+    "fody-html-layout": "^1.0.0",
+    "json-tcp-socket": "^1.0.3",
+    "koa-convert": "^1.2.0",
+    "koa-static": "^2.0.0",
+    "nightingale": "^3.0.5",
+    "objectstream": "0.0.4",
+    "react-pure-render": "^1.0.2",
+    "turaco-styl": "0.6.0"
+  },
   "devDependencies": {
-    "auk-dev": "^1.1.1", 
-    "babel-cli": "^6.5.1", 
-    "eslint": "^1.10.3", 
-    "eslint-config-partridge": "^3.0.1"
+    "alp-dev": "^1.0.0",
+    "babel-cli": "^6.6.5",
+    "eslint": "^2.4.0",
+    "eslint-config-partridge": "^4.3.1"
   }
 }

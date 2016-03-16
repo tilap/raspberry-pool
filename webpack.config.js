@@ -1,1 +1,1 @@
-module.exports = require('auk-dev/webpack.config.js');
+module.exports = require('alp-dev/webpack.config.js');
