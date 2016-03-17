@@ -52,6 +52,16 @@ armVersion=$(cat /proc/cpuinfo | grep -om 1 'v[0-9]\+l')
 
 
 ##
+# Disable blank screen
+##
+displayTitle 'Disable blank screen'
+
+sudo sed -i 's/^BLANK_TIME=.*$/BLANK_TIME=0/g' /etc/kbd/config
+sudo sed -i 's/^POWERDOWN_TIME=.*$/POWERDOWN_TIME=0/g' /etc/kbd/config
+sudo /etc/init.d/kbd restart
+
+
+##
 # Install dependencies
 ##
 displayTitle 'Install dependencies'
@@ -117,7 +127,12 @@ stdout_logfile='$HOME'/logs/openbox.log
 user=pi
 ' | tee /etc/supervisor/conf.d/openbox.conf
 ​
+
+##
+# Allow any user to start X
+##
 displayTitle 'Allow any user to start X'
+
 sed -i 's/^allowed_users=.*$/allowed_users=anybody/g' /etc/X11/Xwrapper.config
 
 
