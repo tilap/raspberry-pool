@@ -16,8 +16,7 @@ export function start(config) {
         const jsonStream = createStream(socket);
         const pingInterval = setInterval(() => jsonStream.write({ type: 'ping' }), 30000);
 
-        socket.on('end', () => {
-            logger.info('client disconnected');
+        const disconnected = () => {
             if (mac && clients.get(mac).socket === socket) {
                 clients.delete(mac);
 
@@ -32,6 +31,20 @@ export function start(config) {
             if (jsonStream) {
                 jsonStream.end();
             }
+        }
+
+        socket.on('end', () => {
+            logger.info('client disconnected');
+            disconnected();
+        });
+
+        socket.on('error', (err) => {
+            logger.info('client error', { err });
+            disconnected();
+        });
+
+        socket.setTimeout(120000, () => {
+            socket.destroy(new Error('timeout'));
         });
 
         jsonStream.on('data', data => {
