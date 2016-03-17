@@ -9,6 +9,7 @@ import { start as startWebsocket } from './webSocket';
 const app = new Alp(__dirname, {
     argv: ['webSocketPort', 'tcpSocketPort'],
 });
+app.proxy = true;
 reactredux(Html)(app);
 app.servePublic();
 app.catchErrors();
