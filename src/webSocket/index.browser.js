@@ -18,6 +18,7 @@ export function start(config) {
         reconnectionDelay: 500,
         reconnectionDelayMax: 1000,
         timeout: 4000,
+        transports: ['websocket'],
     });
 
     socket.on('connect', () => {
