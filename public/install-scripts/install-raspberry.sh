@@ -11,27 +11,22 @@ sudo dpkg-reconfigure tzdata
 
 display_title "Expand root file system"
 wget $URL"expand_rootfs.sh"
-chmod +x expand_rootfs.sh
-sudo ./expand_rootfs.sh
+sudo sh expand_rootfs.sh
 rm expand_rootfs.sh
 
 display_title "Enable auto login"
 wget $URL"autologin.sh"
-chmod +x autologin.sh
-sudo ./autologin.sh enable
+sudo sh autologin.sh enable
 
 display_title "Prepare rpi-update after reboot"
 wget $URL"rpi-update.sh"
-chmod +x rpi-update.sh
 
 wget $URL"apt.sh"
-chmod +x apt.sh
 
 wget $URL"install-client.sh"
-chmod +x install-client.sh
 
-echo "./installer.sh" >> .profile
-echo "./rpi-update.sh" > installer.sh
+echo "sh installer.sh" >> .profile
+echo "sh rpi-update.sh" > installer.sh
 
 rm $0
 sudo reboot
