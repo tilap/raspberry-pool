@@ -1,16 +1,8 @@
 #!/bin/sh
 
-displayTitle() {
+displayTitle(){
 	echo "\033[33m> \033[1m" $1 "\033[0m"
 }
-
-checkRoot() {
-	if [ $USER != 'root' ]; then
-		echo "You are not root, please execute this script with sudo."
-		exit 1
-	fi
-}
-
 
 yesOrNo() {
 	local message
@@ -43,12 +35,6 @@ yesOrNo() {
 }
 
 # config
-
-if [ -z $RPI_USER ]; then
-    RPI_USER="pi"
-fi
-
-RPI_HOME=$(eval echo "~$RPI_USER")
 
 DISPLAY=$(
 ps -u $(id -u) -o pid= | \
@@ -115,8 +101,43 @@ echo '
 command=xinit /usr/bin/openbox-session
 autorestart=true
 redirect_stderr=true
-stdout_logfile='$RPI_HOME'/logs/openbox.log
-user='$RPI_USER'
+stdout_logfile='$HOME'/logs/openbox.log
+user=pi
 ' | tee /etc/supervisor/conf.d/openbox.conf
 ​
+displayTitle 'Allow any user to start X'
+sed -i 's/^allowed_users=.*$/allowed_users=anybody/g' /etc/X11/Xwrapper.config
 
+
+# Install client-cec
+
+apt-get install -y cmake liblockdev1-dev libudev-dev libxrandr-dev python-dev swig
+​
+cd
+git clone https://github.com/Pulse-Eight/platform.git
+mkdir platform/build
+cd platform/build
+cmake ..
+make
+make install
+​
+cd
+git clone https://github.com/Pulse-Eight/libcec.git
+mkdir libcec/build
+cd libcec/build
+cmake -DRPI_INCLUDE_DIR=/opt/vc/include -DRPI_LIB_DIR=/opt/vc/lib ..
+make -j4
+make install
+ldconfig
+​
+cd
+rm -rf libcec platform
+
+
+sh autologin.sh disable
+rm autologin.sh
+
+sed -i 's/^sh installer.sh$//g' .profile
+
+rm $0
+sudo reboot
