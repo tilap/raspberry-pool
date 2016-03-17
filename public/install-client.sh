@@ -1,10 +1,10 @@
 #!/bin/sh
 
-displayTitle(){
+displayTitle() {
 	echo "\033[33m> \033[1m" $1 "\033[0m"
 }
 
-checkRoot(){
+checkRoot() {
 	if [ $USER != 'root' ]; then
 		echo "You are not root, please execute this script with sudo."
 		exit 1
@@ -44,6 +44,12 @@ yesOrNo() {
 
 # config
 
+if [ -z $RPI_USER ]; then
+    RPI_USER="pi"
+fi
+
+RPI_HOME=$(eval echo "~$RPI_USER")
+
 DISPLAY=$(
 ps -u $(id -u) -o pid= | \
     while read pid; do
@@ -65,8 +71,8 @@ displayTitle 'Install dependencies'
 # uget: kweb - download manager
 # tint2: kweb - task bar
 # xterm: kweb - full screen video without GUI
-# unclutter: kweb - hide the mouse cursor
-# xdotool: kweb - emulate keyboard key
+# unclutter: hide the mouse cursor
+# xdotool: emulate keyboard key
 # supervisor: keep node client alive
 # scrot: screenshot tool
 apt-get install -y uget tint2 xterm unclutter xdotool supervisor
@@ -109,8 +115,8 @@ echo '
 command=xinit /usr/bin/openbox-session
 autorestart=true
 redirect_stderr=true
-stdout_logfile='$HOME'/logs/openbox.log
-user=pi
+stdout_logfile='$RPI_HOME'/logs/openbox.log
+user='$RPI_USER'
 ' | tee /etc/supervisor/conf.d/openbox.conf
 ​
 
