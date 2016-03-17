@@ -34,4 +34,4 @@ echo "./installer.sh" >> .profile
 echo "./rpi-update.sh" > installer.sh
 
 rm $0
-reboot
+sudo reboot

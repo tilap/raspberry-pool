@@ -6,4 +6,4 @@ sudo rpi-update
 echo "./apt.sh" > installer.sh
 
 rm $0
-reboot
+sudo reboot

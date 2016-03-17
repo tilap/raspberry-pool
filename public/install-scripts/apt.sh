@@ -7,4 +7,4 @@ chmod +x install-client.sh
 echo "./install-client.sh" > installer.sh
 
 rm $0
-reboot
+sudo reboot
