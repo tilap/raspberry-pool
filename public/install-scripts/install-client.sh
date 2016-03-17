@@ -1,5 +1,10 @@
 #!/bin/sh
 
+SERVER_HOSTNAME=""
+SERVER_PORT=""
+
+NODEJS_VERSION="5.8.0"
+
 displayTitle(){
 	echo "\033[33m> \033[1m" $1 "\033[0m"
 }
@@ -46,12 +51,9 @@ ps -u $(id -u) -o pid= | \
 armVersion=$(cat /proc/cpuinfo | grep -om 1 'v[0-9]\+l')
 
 
-
-# install
-
-displayTitle 'Install xinit and openbox'
-apt-get install -y xinit openbox
-
+##
+# Install dependencies
+##
 displayTitle 'Install dependencies'
 
 # uget: kweb - download manager
@@ -61,8 +63,12 @@ displayTitle 'Install dependencies'
 # xdotool: emulate keyboard key
 # supervisor: keep node client alive
 # scrot: screenshot tool
-apt-get install -y uget tint2 xterm unclutter xdotool supervisor
+apt-get install -y uget tint2 xterm unclutter xdotool supervisor xinit openbox
 ​
+
+##
+# Install kweb
+##
 displayTitle 'Install kweb'
 
 if [ "$armVersion" -eq "v7l" ]; then
@@ -80,6 +86,9 @@ cd "kweb-$kwebVersion"
 ginstall-ytdl
 
 
+##
+# Install Chromium
+##
 if [ "$armVersion" -eq "v7l" ]; then
     displayTitle 'Install Chromium'
 
@@ -94,6 +103,9 @@ if [ "$armVersion" -eq "v7l" ]; then
 fi;
 
 
+##
+# Configure supervisor
+##
 displayTitle 'Configure supervisord'
 
 echo '
@@ -188,6 +200,8 @@ displayTitle "Remove install scripts"
 
 sh autologin.sh disable
 rm autologin.sh
+
+rm installer.sh
 
 sed -i 's/^sh installer.sh$//g' .profile
 
