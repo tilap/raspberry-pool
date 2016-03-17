@@ -109,7 +109,54 @@ displayTitle 'Allow any user to start X'
 sed -i 's/^allowed_users=.*$/allowed_users=anybody/g' /etc/X11/Xwrapper.config
 
 
-# Install client-cec
+##
+# Install Nodejs
+##
+displayTitle "Install Nodejs"
+
+nodeDirectory="node-v$NODEJS_VERSION-linux-arm$armVersion"
+wget "https://nodejs.org/download/release/v$NODEJS_VERSION/$nodeDirectory.tar.gz"
+tar xzvf "$nodeDirectory.tar.gz"
+cd $nodeDirectory
+sudo cp -R * /usr/local/
+sudo npm install -g npm
+
+cd $HOME
+rm "$nodeDirectory.tar.gz"
+rm -rf $nodeDirectory
+
+
+##
+# Setup raspberry node client
+##
+displayTitle "Setup raspberry node client"
+
+cd $HOME
+sudo apt-get install -y git
+git clone https://github.com/christophehurpeau/raspberry-client.git
+
+mkdir $HOME/logs
+
+echo "# Setup supervisor for node client"
+echo '
+[program:node-raspberry-client]
+command=node --es_staging '$HOME'/raspberry-client --port='$SERVER_PORT' --host='$SERVER_HOSTNAME' 
+autostart=true
+autorestart=true
+redirect_stderr=true
+stdout_logfile='$HOME'/logs/client.log
+user=pi
+' | sudo tee /etc/supervisor/conf.d/node-client.conf
+
+cd raspberry-client
+npm install --production
+sudo supervisorctl reread && sudo supervisorctl reload || echo
+
+
+##
+# Install libcec
+##
+displayTitle "Install libcec"
 
 apt-get install -y cmake liblockdev1-dev libudev-dev libxrandr-dev python-dev swig
 ​
@@ -133,6 +180,11 @@ ldconfig
 cd
 rm -rf libcec platform
 
+
+##
+# Remove install scripts
+##
+displayTitle "Remove install scripts"
 
 sh autologin.sh disable
 rm autologin.sh
