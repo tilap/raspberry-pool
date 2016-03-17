@@ -1,18 +1,17 @@
-checkRoot(){
+checkRoot() {
 	if [ $USER != 'root' ]; then
 		echo "You are not root, please execute this script with sudo."
 		exit 1
 	fi
 }
 
-displayTitle(){
+displayTitle() {
 	echo "\033[33m> \033[1m" $1 "\033[0m"
 }
 
 
 ### raspi-config is licensed under the terms of the MIT license. Copyright (c) 2012 Alex Bradbury <asb@asbradbury.org>
 INTERACTIVE=True
-ASK_TO_REBOOT=0
 
 do_expand_rootfs() {
   if ! [ -h /dev/root ]; then
@@ -57,7 +56,6 @@ $PART_START
 p
 w
 EOF
-  ASK_TO_REBOOT=1
 
   # now set up an init.d script
 cat <<\EOF > /etc/init.d/resize2fs_once &&
@@ -106,7 +104,7 @@ rpi-update
 
 
 displayTitle 'Disable desktop manager at boot'
-sudo update-rc.d lightdm disable
+update-rc.d lightdm disable
 
 displayTitle 'Allow any user to start X'
 sed -i 's/^allowed_users=.*$/allowed_users=anybody/g' /etc/X11/Xwrapper.config
@@ -115,28 +113,25 @@ sed -i 's/^allowed_users=.*$/allowed_users=anybody/g' /etc/X11/Xwrapper.config
 # Install client-cec
 
 apt-get install -y cmake liblockdev1-dev libudev-dev libxrandr-dev python-dev swig
-​
+
 cd
 git clone https://github.com/Pulse-Eight/platform.git
 mkdir platform/build
 cd platform/build
 cmake ..
 make
-sudo make install
-​
+make install
+
 cd
 git clone https://github.com/Pulse-Eight/libcec.git
 mkdir libcec/build
 cd libcec/build
 cmake -DRPI_INCLUDE_DIR=/opt/vc/include -DRPI_LIB_DIR=/opt/vc/lib ..
 make -j4
-sudo make install
-sudo ldconfig
-​
+make install
+ldconfig
+
 cd
 rm -rf libcec platform
-​
-# reboot
 
 reboot
-
