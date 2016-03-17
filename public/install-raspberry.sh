@@ -102,6 +102,8 @@ do_expand_rootfs
 apt-get install rpi-update
 rpi-update
 
+apt-get update
+apt-get upgrade -y
 
 displayTitle 'Disable desktop manager at boot'
 update-rc.d lightdm disable
@@ -112,7 +114,7 @@ sed -i 's/^allowed_users=.*$/allowed_users=anybody/g' /etc/X11/Xwrapper.config
 
 # Install client-cec
 
-apt-get install -y cmake liblockdev1-dev libudev-dev libxrandr-dev python-dev swig
+apt-get install -y git cmake liblockdev1-dev libudev-dev libxrandr-dev python-dev swig
 
 cd
 git clone https://github.com/Pulse-Eight/platform.git
