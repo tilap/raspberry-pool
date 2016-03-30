@@ -73,7 +73,7 @@ displayTitle 'Install dependencies'
 # xdotool: emulate keyboard key
 # supervisor: keep node client alive
 # scrot: screenshot tool
-apt-get install -y uget tint2 xterm unclutter xdotool supervisor xinit openbox
+sudo apt-get install -y uget tint2 xterm unclutter xdotool supervisor xinit openbox
 ​
 
 ##
@@ -81,7 +81,7 @@ apt-get install -y uget tint2 xterm unclutter xdotool supervisor xinit openbox
 ##
 displayTitle 'Install kweb'
 
-if [ "$armVersion" -eq "v7l" ]; then
+if [ "$armVersion" = "v7l" ]; then
     kwebVersion='1.6.9'
 else
     kwebVersion='1.6.8'
