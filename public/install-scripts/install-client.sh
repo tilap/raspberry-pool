@@ -216,9 +216,7 @@ displayTitle "Remove install scripts"
 sh autologin.sh disable
 rm autologin.sh
 
-rm installer.sh
-
-sed -i 's/^sh installer.sh$//g' .profile
+sh boot.sh disable
 
 rm $0
 sudo reboot

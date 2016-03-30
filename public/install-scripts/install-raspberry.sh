@@ -25,8 +25,10 @@ wget $URL"apt.sh"
 
 wget $URL"install-client.sh"
 
-echo "sh installer.sh" >> .profile
-echo "sh rpi-update.sh" > installer.sh
+wget $URL"boot.sh"
+
+sh boot.sh enable
+sh boot.sh next "sh rpi-update.sh"
 
 rm $0
 sudo reboot
