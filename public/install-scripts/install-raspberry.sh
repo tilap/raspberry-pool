@@ -1,6 +1,6 @@
 #!/bin/sh
 
-URL=http://192.168.1.122:3100/install-scripts/
+URL=https://raspberry-pool.potoo.io/install-scripts/
 
 display_title() {
 	echo "\033[33m> \033[1m" $1 "\033[0m"
