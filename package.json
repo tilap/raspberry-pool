@@ -10,7 +10,7 @@
     "watch": "make w"
   }, 
   "dependencies": {
-    "alp": "^2.0.2", 
+    "alp": "^2.1.0", 
     "alp-react-redux": "^1.0.0", 
     "alp-translate": "^0.1.1", 
     "fody-html-layout": "^1.0.0", 
