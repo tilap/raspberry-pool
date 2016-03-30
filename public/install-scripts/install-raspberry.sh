@@ -1,6 +1,6 @@
 #!/bin/sh
 
-URL=https://raspberry-pool.potoo.io/install-scripts/
+### CONFIG WILL BE INJECTED HERE ###
 
 display_title() {
 	echo "\033[33m> \033[1m" $1 "\033[0m"
