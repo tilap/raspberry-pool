@@ -217,6 +217,7 @@ sh autologin.sh disable
 rm autologin.sh
 
 sh boot.sh disable
+rm boot.sh
 
 rm $0
 sudo reboot
