@@ -102,7 +102,7 @@ ginstall-ytdl
 if [ "$armVersion" -eq "v7l" ]; then
     displayTitle 'Install Chromium'
 
-    apt-get install gconf-service libgconf-2-4 libgnome-keyring0 libnspr4 libnss3 xdg-utils
+    sudo apt-get install gconf-service libgconf-2-4 libgnome-keyring0 libnspr4 libnss3 xdg-utils
     cd /tmp
     wget http://ports.ubuntu.com/pool/universe/c/chromium-browser/chromium-browser-l10n_48.0.2564.116-0ubuntu1.1229_all.deb
     wget http://ports.ubuntu.com/pool/universe/c/chromium-browser/chromium-browser-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
@@ -125,7 +125,7 @@ autorestart=true
 redirect_stderr=true
 stdout_logfile='$HOME'/logs/openbox.log
 user=pi
-' | tee /etc/supervisor/conf.d/openbox.conf
+' | sudo tee /etc/supervisor/conf.d/openbox.conf
 ​
 
 ##
@@ -133,7 +133,7 @@ user=pi
 ##
 displayTitle 'Allow any user to start X'
 
-sed -i 's/^allowed_users=.*$/allowed_users=anybody/g' /etc/X11/Xwrapper.config
+sudo sed -i 's/^allowed_users=.*$/allowed_users=anybody/g' /etc/X11/Xwrapper.config
 
 
 ##
@@ -185,7 +185,7 @@ sudo supervisorctl reread && sudo supervisorctl reload || echo
 ##
 displayTitle "Install libcec"
 
-apt-get install -y cmake liblockdev1-dev libudev-dev libxrandr-dev python-dev swig
+sudo apt-get install -y cmake liblockdev1-dev libudev-dev libxrandr-dev python-dev swig
 ​
 cd
 git clone https://github.com/Pulse-Eight/platform.git
