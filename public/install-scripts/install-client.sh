@@ -50,6 +50,7 @@ ps -u $(id -u) -o pid= | \
 ​
 armVersion=$(cat /proc/cpuinfo | grep -om 1 'v[0-9]\+l')
 
+sh boot.sh disable
 
 ##
 # Disable blank screen
@@ -216,7 +217,6 @@ displayTitle "Remove install scripts"
 sh autologin.sh disable
 rm autologin.sh
 
-sh boot.sh disable
 rm boot.sh
 
 rm $0
