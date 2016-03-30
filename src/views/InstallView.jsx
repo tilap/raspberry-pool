@@ -28,12 +28,12 @@ export default class InstallView extends Component {
 
                 <h2>2. Configure your new raspberry (optional)</h2>
                 <pre>
-                    {`curl ${url}/install-raspberry.sh | sudo sh`}
+                    {`curl ${url}/install-scripts/install-raspberry.sh | sudo sh`}
                 </pre>
 
                 <h2>3. Install raspberry-client and dependencies (node, livestreamer, chromium...)</h2>
                 <pre>
-                    {`curl ${url}/install-client.sh | sudo sh`}
+                    {`curl ${url}/install-scripts/install-client.sh | sudo sh`}
                 </pre>
             </div>
         </div>);
