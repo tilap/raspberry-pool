@@ -3,7 +3,7 @@ import { readdirSync, readFileSync } from 'fs';
 
 const installScriptsDir = `${__dirname}/../../../install-scripts/`;
 const date = new Date();
-const CONFIG_PLACEHOLDER = '### CONFIG WILL BE INJECTED HERE ###';
+const CONFIG_PLACEHOLDER = '### SERVER CONFIG WILL BE INJECTED HERE ###';
 
 const scripts = new Map(
     readdirSync(installScriptsDir)
