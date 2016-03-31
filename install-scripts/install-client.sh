@@ -191,7 +191,7 @@ mkdir platform/build
 cd platform/build
 cmake ..
 make
-make install
+sudo make install
 ​
 cd
 git clone https://github.com/Pulse-Eight/libcec.git
@@ -199,8 +199,8 @@ mkdir libcec/build
 cd libcec/build
 cmake -DRPI_INCLUDE_DIR=/opt/vc/include -DRPI_LIB_DIR=/opt/vc/lib ..
 make -j4
-make install
-ldconfig
+sudo make install
+sudo ldconfig
 ​
 cd
 rm -rf libcec platform
