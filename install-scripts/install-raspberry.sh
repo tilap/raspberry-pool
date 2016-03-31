@@ -6,23 +6,41 @@ display_title() {
 	echo "\033[33m> \033[1m" $1 "\033[0m"
 }
 
+##
+# Configure time zone
+##
 display_title "Configure time zone"
+
 sudo dpkg-reconfigure tzdata
 
+##
+# Expand root file system
+##
 display_title "Expand root file system"
 wget $URL"expand_rootfs.sh"
 sudo sh expand_rootfs.sh
 rm expand_rootfs.sh
 
+##
+# Disable display overscan
+##
 display_title "Disable display overscan"
+
 sudo sed -i 's/^.*disable_overscan.*$/disable_overscan=1/g' /boot/config.txt
 
+##
+# Apply config file
+##
 display_title "Apply config file"
+
 if [ ! -f config.sh ]; then
   wget $URL"config.sh"
 fi
 sh config.sh
 
+##
+# Enable SSH key auth
+##
 if [ "$ENABLE_SSH_KEY_AUTH" = true ] ; then
   display_title "Add authorized ssh keys"
   mkdir $HOME/.ssh
@@ -43,6 +61,9 @@ UsePAM no
 fi
 
 
+##
+# Setup wifi
+##
 if [ "$ENABLE_WIFI" = true ] ; then
   display_title "Setup wifi"
   echo '
@@ -53,8 +74,16 @@ network={
 ' | sudo tee --append /etc/wpa_supplicant/wpa_supplicant.conf
 fi
 
-
+##
+# Enable auto login
+##
 display_title "Enable auto login"
+
+##
+# Download install scripts
+##
+display_title "Download install scripts"
+
 wget $URL"autologin.sh"
 sudo sh autologin.sh enable
 
