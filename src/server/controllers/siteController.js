@@ -1,6 +1,7 @@
 import newController from 'alp-controller';
 import * as appDescriptor from '../../views/index';
 import InstallView from '../../views/InstallView';
+import NoConfigView from '../../views/NoConfigView';
 import * as raspberriesManager from '../raspberriesManager';
 
 export default newController({
@@ -9,7 +10,7 @@ export default newController({
     },
 
     'no-config'(ctx) {
-        return ctx.body = 'No config file found for this raspberry';
+        ctx.render({ View: NoConfigView }, { url: ctx.request.origin, ip: ctx.query.ip });
     },
 
     install(ctx) {

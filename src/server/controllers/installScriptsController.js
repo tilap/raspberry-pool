@@ -11,9 +11,6 @@ const scripts = new Map(
         .map(filename => [filename.slice(0, -3), readFileSync(`${installScriptsDir}${filename}`).toString()])
 );
 
-
-scripts.get('install-raspberry').replace(CONFIG_PLACEHOLDER, 'URL = ')
-
 export default newController({
     index(ctx) {
         ctx.assert(ctx.method === 'HEAD' || ctx.method === 'GET', 405);
