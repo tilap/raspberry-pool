@@ -18,9 +18,6 @@ display_title "Enable auto login"
 wget $URL"autologin.sh"
 sudo sh autologin.sh enable
 
-display_title "Prepare rpi-update after reboot"
-wget $URL"rpi-update.sh"
-
 wget $URL"apt.sh"
 
 wget $URL"install-client.sh"
