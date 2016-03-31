@@ -2,8 +2,6 @@
 
 ### SERVER CONFIG WILL BE INJECTED HERE ###
 
-NODEJS_VERSION="5.8.0"
-
 displayTitle(){
 	echo "\033[33m> \033[1m" $1 "\033[0m"
 }
