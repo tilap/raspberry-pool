@@ -36,7 +36,7 @@ display_title "Apply config file"
 if [ ! -f config.sh ]; then
   wget $URL"config.sh"
 fi
-sh config.sh
+. ./config.sh
 
 ##
 # Enable SSH key auth

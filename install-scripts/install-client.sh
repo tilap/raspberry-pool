@@ -39,7 +39,7 @@ yesOrNo() {
 ##
 # Config
 ##
-sh config.sh
+. ./config.sh
 
 DISPLAY=$(
 ps -u $(id -u) -o pid= | \
