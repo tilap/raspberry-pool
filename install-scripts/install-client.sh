@@ -96,6 +96,7 @@ cd "kweb-$kwebVersion"
 # youtube-dl for video support
 ginstall-ytdl
 
+rm -rf "kweb-$kwebVersion" "kweb-$kwebVersion.tar.gz"
 
 ##
 # Install Chromium
