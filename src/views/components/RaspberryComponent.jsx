@@ -70,6 +70,7 @@ export default class RaspberryComponent extends Component {
                                 })}
                             >
                                 <option value="kweb3">kweb3</option>
+                                <option value="chromium">chromium</option>
                                 <option value="livestreamer">livestreamer</option>
                             </select>
                             <label htmlFor={`raspberry-select-${raspberry.id}`}>Display</label>
