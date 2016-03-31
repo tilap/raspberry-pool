@@ -18,7 +18,9 @@ display_title "Disable display overscan"
 sudo sed -i 's/^.*disable_overscan.*$/disable_overscan=1/g' /boot/config.txt
 
 display_title "Apply config file"
-wget $URL"config.sh"
+if [ ! -f config.sh ]; then
+  wget $URL"config.sh"
+fi
 sh config.sh
 
 if [ "$ENABLE_SSH_KEY_AUTH" = true ] ; then
