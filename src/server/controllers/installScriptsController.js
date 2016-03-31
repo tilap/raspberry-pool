@@ -23,7 +23,7 @@ export default newController({
         ctx.set('Last-Modified', date.toUTCString());
 
         if (scriptName === 'install-raspberry') {
-            scriptBody = scriptBody.replace(CONFIG_PLACEHOLDER, `URL="${ctx.request.origin}"`);
+            scriptBody = scriptBody.replace(CONFIG_PLACEHOLDER, `URL="${ctx.request.origin}/"`);
         } else if (scriptName === 'install-client') {
             scriptBody = scriptBody.replace(
                 CONFIG_PLACEHOLDER,
