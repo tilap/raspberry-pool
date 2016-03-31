@@ -36,7 +36,10 @@ yesOrNo() {
 	done
 }
 
-# config
+##
+# Config
+##
+sh config.sh
 
 DISPLAY=$(
 ps -u $(id -u) -o pid= | \
@@ -215,6 +218,7 @@ sh autologin.sh disable
 rm autologin.sh
 
 rm boot.sh
+rm config.sh
 
 rm $0
 sudo reboot
