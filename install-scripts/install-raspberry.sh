@@ -14,10 +14,12 @@ wget $URL"expand_rootfs.sh"
 sudo sh expand_rootfs.sh
 rm expand_rootfs.sh
 
+display_title "Disable display overscan"
+sudo sed -i 's/^.*disable_overscan.*$/disable_overscan=1/g' /boot/config.txt
+
 display_title "Apply config file"
 wget $URL"config.sh"
 sh config.sh
-
 
 if [ "$ENABLE_SSH_KEY_AUTH" = true ] ; then
   display_title "Add authorized ssh keys"
