@@ -104,14 +104,14 @@ rm -rf "kweb-$kwebVersion" "kweb-$kwebVersion.tar.gz"
 if [ "$armVersion" -eq "v7l" ]; then
     displayTitle 'Install Chromium'
 
-    sudo apt-get install gconf-service libgconf-2-4 libgnome-keyring0 libnspr4 libnss3 xdg-utils
+    sudo apt-get install gconf-service libgconf-2-4 libgnome-keyring0 libnspr4 libnss3 xdg-utils libxss1
     cd /tmp
-    wget http://ports.ubuntu.com/pool/universe/c/chromium-browser/chromium-browser-l10n_48.0.2564.116-0ubuntu1.1229_all.deb
-    wget http://ports.ubuntu.com/pool/universe/c/chromium-browser/chromium-browser-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
-    wget http://ports.ubuntu.com/pool/universe/c/chromium-browser/chromium-codecs-ffmpeg-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
-    sudo dpkg -i chromium-codecs-ffmpeg-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
-    sudo dpkg -i chromium-browser-l10n_48.0.2564.116-0ubuntu1.1229_all.deb chromium-browser-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
-    rm -f chromium-codecs-ffmpeg-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb chromium-browser-l10n_48.0.2564.116-0ubuntu1.1229_all.deb chromium-browser-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
+    wget https://dl.dropboxusercontent.com/u/87113035/chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb
+    wget https://dl.dropboxusercontent.com/u/87113035/chromium-browser_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
+    wget https://dl.dropboxusercontent.com/u/87113035/chromium-codecs-ffmpeg-extra_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
+    sudo dpkg -i chromium-codecs-ffmpeg-extra_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
+    sudo dpkg -i chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb chromium-browser_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
+    rm -f chromium-codecs-ffmpeg-extra_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb chromium-browser_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
 fi;
 
 
