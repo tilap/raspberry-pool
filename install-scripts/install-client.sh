@@ -109,8 +109,8 @@ if [ "$armVersion" -eq "v7l" ]; then
     wget http://ports.ubuntu.com/pool/universe/c/chromium-browser/chromium-browser-l10n_48.0.2564.116-0ubuntu1.1229_all.deb
     wget http://ports.ubuntu.com/pool/universe/c/chromium-browser/chromium-browser-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
     wget http://ports.ubuntu.com/pool/universe/c/chromium-browser/chromium-codecs-ffmpeg-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
-    dpkg -i chromium-codecs-ffmpeg-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
-    dpkg -i chromium-browser-l10n_48.0.2564.116-0ubuntu1.1229_all.deb chromium-browser-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
+    sudo dpkg -i chromium-codecs-ffmpeg-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
+    sudo dpkg -i chromium-browser-l10n_48.0.2564.116-0ubuntu1.1229_all.deb chromium-browser-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
     rm -f chromium-codecs-ffmpeg-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb chromium-browser-l10n_48.0.2564.116-0ubuntu1.1229_all.deb chromium-browser-dbg_48.0.2564.116-0ubuntu1.1229_armhf.deb
 fi;
 
