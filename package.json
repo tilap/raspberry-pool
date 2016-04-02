@@ -13,7 +13,7 @@
     "alp": "^2.1.0", 
     "alp-react-redux": "^1.0.0", 
     "alp-translate": "^0.1.1", 
-    "alp-websocket": "^1.0.0", 
+    "alp-websocket": "^1.0.1", 
     "fody-html-layout": "^1.0.0", 
     "json-tcp-socket": "^1.0.3", 
     "nightingale": "^3.0.5", 
