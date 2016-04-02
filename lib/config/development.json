@@ -1,4 +1,9 @@
 {
-    "webSocketPort": 3001,
-    "tcpSocketPort": 3002
+    "webSocket": {
+        "secure": true,
+        "port": 3001
+    },
+    "tcpSocket": {
+        "port": 3002
+    }
 }

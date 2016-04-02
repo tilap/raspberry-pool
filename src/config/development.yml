@@ -1,5 +1,8 @@
 common:
-    webSocketPort: 3001
+    webSocket:
+        secure: true
+        port: 3001
 server:
-    tcpSocketPort: 3002
+    tcpSocket:
+        port: 3002
 

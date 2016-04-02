@@ -3,8 +3,7 @@
   "private": true,
   "dependencies": {
     "alauda": "^1.0.0",
-    "babel-regenerator-runtime": "^6.5.0",
-    "socket.io-client": "^1.4.5"
+    "babel-regenerator-runtime": "^6.5.0"
   },
   "devDependencies": {
     "redbox-react": "^1.2.2"

@@ -88,7 +88,7 @@ export function start(config) {
         });
     });
 
-    const port = config.get('tcpSocketPort');
+    const port = config.get('tcpSocket').get('port');
     server.listen(port, () => {
         logger.info('Listening', { port });
     });

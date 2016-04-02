@@ -4,10 +4,10 @@ import routerBuilder from './common/routerBuilder';
 import Html from './views/layouts/Html';
 import controllers from './server/controllers';
 import { start as startTcpServer } from './server/tcp-server';
-import { start as startWebsocket } from './webSocket';
+import { init as websocket } from './webSocket';
 
 const app = new Alp(__dirname, {
-    argv: ['webSocketPort', 'tcpSocketPort'],
+    argv: ['webSocket.port', 'tcpSocket.port'],
 });
 app.proxy = true;
 reactredux(Html)(app);
@@ -16,4 +16,4 @@ app.catchErrors();
 app.useRouter(routerBuilder, controllers);
 app.listen();
 startTcpServer(app.config);
-startWebsocket(app.config);
+websocket(app);
