@@ -24,7 +24,7 @@ export default newController({
         } else if (scriptName === 'install-client') {
             scriptBody = scriptBody.replace(
                 CONFIG_PLACEHOLDER,
-                `SERVER_HOSTNAME="${ctx.request.origin}"\nSERVER_PORT=${ctx.app.config.get('tcpSocketPort')}`
+                `SERVER_HOSTNAME="${ctx.request.origin}"\nSERVER_PORT=${ctx.app.config.get('tcpSocket').get('port')}`
             );
         }
 
