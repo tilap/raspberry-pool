@@ -96,15 +96,16 @@ cd "kweb-$kwebVersion"
 # youtube-dl for video support
 ginstall-ytdl
 
+cd $HOME
 rm -rf "kweb-$kwebVersion" "kweb-$kwebVersion.tar.gz"
 
 ##
 # Install Chromium
 ##
-if [ "$armVersion" -eq "v7l" ]; then
+if [ "$armVersion" = "v7l" ]; then
     displayTitle 'Install Chromium'
 
-    sudo apt-get install gconf-service libgconf-2-4 libgnome-keyring0 libnspr4 libnss3 xdg-utils libxss1
+    sudo apt-get install -y gconf-service libgconf-2-4 libgnome-keyring0 libnspr4 libnss3 xdg-utils libxss1
     cd /tmp
     wget https://dl.dropboxusercontent.com/u/87113035/chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb
     wget https://dl.dropboxusercontent.com/u/87113035/chromium-browser_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
@@ -179,7 +180,7 @@ user=pi
 
 cd raspberry-client
 npm install --production
-sudo supervisorctl reread && sudo supervisorctl reload || echo
+sudo supervisorctl reread
 
 
 ##
