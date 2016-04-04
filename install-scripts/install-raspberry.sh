@@ -44,7 +44,7 @@ fi
 if [ "$ENABLE_SSH_KEY_AUTH" = true ] ; then
   display_title "Add authorized ssh keys"
   mkdir $HOME/.ssh
-  echo -e $SSH_PUBLIC_KEYS | tee $HOME/.ssh/authorized_keys
+  echo "$SSH_PUBLIC_KEYS" | tee $HOME/.ssh/authorized_keys
 
 
   display_title "Enable SSH public key auth"
