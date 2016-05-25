@@ -1,10 +1,10 @@
-import { ConsoleLogger, LogLevel } from 'nightingale';
+import Logger from 'nightingale';
 import * as data from './raspberriesData';
 import { updateFromAction } from '../common/raspberryActionManager';
 import * as raspberries from './tcp-server';
 import * as webSocket from '../webSocket';
 
-const logger = new ConsoleLogger('app.raspberriesManager', LogLevel.INFO);
+const logger = new Logger('app.raspberriesManager');
 const map = new Map();
 const mapByMac = new Map();
 

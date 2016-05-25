@@ -1,7 +1,7 @@
 import websocket from 'alp-websocket';
-import { ConsoleLogger, LogLevel } from 'nightingale';
+import Logger from 'nightingale';
 
-const logger = new ConsoleLogger('app.webSocket', LogLevel.INFO);
+const logger = new Logger('app.webSocket');
 let socket;
 
 export function init(app) {

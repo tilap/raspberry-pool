@@ -6,9 +6,11 @@ import controllers from './server/controllers';
 import { start as startTcpServer } from './server/tcp-server';
 import { init as websocket } from './webSocket';
 
-const app = new Alp(__dirname, {
-    argv: ['webSocket.port', 'tcpSocket.port'],
-});
+const app = new Alp(
+    `${__dirname}/..`,
+    __dirname,
+    { argv: ['webSocket.port', 'tcpSocket.port'] }
+);
 app.proxy = true;
 reactredux(Html)(app);
 app.servePublic();

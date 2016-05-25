@@ -35,10 +35,13 @@ npm run watch
 Create src/config/local.yml
 ```
 common:
-    webSocketPort: 3001
+    webSocket:
+        secure: true
+        port: 3001
 server:
     port: 3000
-    tcpSocketPort: 3002
+    tcpSocket:
+        port: 3002
 
 ```
 

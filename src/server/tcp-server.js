@@ -1,10 +1,10 @@
 import { createServer } from 'net';
-import { ConsoleLogger, LogLevel } from 'nightingale';
+import Logger from 'nightingale';
 import * as raspberriesManager from './raspberriesManager';
 import { createStream } from 'objectstream';
 import { lt as semverLt } from 'semver';
 
-const logger = new ConsoleLogger('app.tcp-server', LogLevel.INFO);
+const logger = new Logger('app.tcp-server');
 
 const MIN_SUPPORTED_VERSION = '4.1.0';
 const clients = new Map();

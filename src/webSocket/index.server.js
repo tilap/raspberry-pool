@@ -1,8 +1,8 @@
 import websocket from 'alp-websocket';
-import { ConsoleLogger, LogLevel } from 'nightingale';
+import Logger from 'nightingale';
 import * as raspberriesManager from '../server/raspberriesManager';
 
-const logger = new ConsoleLogger('app.webSocket', LogLevel.INFO);
+const logger = new Logger('app.webSocket');
 let io;
 
 export function broadcast(type, data) {
