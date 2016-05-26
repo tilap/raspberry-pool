@@ -170,7 +170,8 @@ mkdir $HOME/logs
 echo "# Setup supervisor for node client"
 echo '
 [program:node-raspberry-client]
-command=node --es_staging '$HOME'/raspberry-client --port='$SERVER_PORT' --host='$SERVER_HOSTNAME' 
+environment=NODE_ENV="production"
+command=node --es_staging '$HOME'/raspberry-client --port='$SERVER_PORT' --host='$SERVER_HOSTNAME'
 autostart=true
 autorestart=true
 redirect_stderr=true
