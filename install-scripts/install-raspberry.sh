@@ -96,5 +96,4 @@ wget $URL"boot.sh"
 sh boot.sh enable
 sh boot.sh next "sh apt.sh"
 
-rm $0
 sudo reboot
