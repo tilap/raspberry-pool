@@ -2,7 +2,4 @@ common:
     webSocket:
         secure: true
         port: 3333
-server:
-    tcpSocket:
-        port: 3334
 

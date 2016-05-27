@@ -2,8 +2,5 @@
     "webSocket": {
         "secure": true,
         "port": 3333
-    },
-    "tcpSocket": {
-        "port": 3334
     }
 }

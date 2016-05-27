@@ -150,16 +150,15 @@ sudo apt-get install -y nodejs
 displayTitle "Setup raspberry node client"
 
 cd $HOME
-sudo apt-get install -y git
-git clone https://github.com/christophehurpeau/raspberry-client.git
-
 mkdir $HOME/logs
+
+sudo npm install -g raspberry-client
 
 echo "# Setup supervisor for node client"
 echo '
 [program:node-raspberry-client]
 environment=NODE_ENV="production"
-command=node --es_staging '$HOME'/raspberry-client --port='$SERVER_PORT' --host='$SERVER_HOSTNAME'
+command=raspberry-client --port='$SERVER_PORT' --host='$SERVER_HOSTNAME'
 autostart=true
 autorestart=true
 redirect_stderr=true
@@ -167,8 +166,6 @@ stdout_logfile='$HOME'/logs/client.log
 user=pi
 ' | sudo tee /etc/supervisor/conf.d/node-client.conf
 
-cd raspberry-client
-npm install --production
 sudo supervisorctl reread
 
 
