@@ -1,1 +1,0 @@
-{"version":3,"sources":["loggers.js"],"names":[],"mappings":";;AAAA;;AACA;;;;;;AAEA,mCAAiB,kCAAjB","file":"loggers.js","sourcesContent":["import { addGlobalHandler } from 'nightingale';\nimport ConsoleLogger from 'nightingale-console';\n\naddGlobalHandler(new ConsoleLogger());\n"],"sourceRoot":"/"}

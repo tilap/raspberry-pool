@@ -1,14 +1,14 @@
 import Logger from 'nightingale';
 import * as data from './raspberriesData';
 import { updateFromAction } from '../common/raspberryActionManager';
-import * as raspberries from './tcp-server';
-import * as webSocket from '../webSocket';
+import { raspberriesBroadcast, emitToRaspberryClient } from './websocket';
+import type { RaspberryConfig, RaspberryData, Raspberry } from './types';
 
 const logger = new Logger('app.raspberriesManager');
 const map = new Map();
 const mapByMac = new Map();
 
-data.items.forEach(item => {
+data.items.forEach((item: ?RaspberryData) => {
     const raspberry = {
         id: item.id,
         data: item,
@@ -27,19 +27,19 @@ data.items.forEach(item => {
     });
 });
 
-export function getById(id) {
+export function getById(id: string): ?Raspberry {
     return map.get(id);
 }
 
-export function getByMac(mac) {
+export function getByMac(mac: string): ?Raspberry {
     return mapByMac.get(mac);
 }
 
-export function getAll() {
+export function getAll(): Array<Raspberry> {
     return Array.from(map.values());
 }
 
-/* FROM raspberries */
+/* FROM raspberry clients */
 
 export function setOnline(mac, configTime, info) {
     let raspberry = getByMac(mac);
@@ -60,17 +60,14 @@ export function setOnline(mac, configTime, info) {
     raspberry.online = mac;
     Object.assign(raspberry, info);
 
-    webSocket.broadcast(`raspberry:${unknownMac ? 'add' : 'update'}`, raspberry);
+    raspberriesBroadcast(`raspberry:${unknownMac ? 'add' : 'update'}`, raspberry);
 
     if (raspberry.data && raspberry.data.config.time !== configTime) {
-        raspberries.emit(raspberry.online, {
-            type: 'change-config',
-            config: raspberry.data.config,
-        });
+        emitToRaspberryClient(raspberry.online, 'changeConfig', raspberry.data.config);
     }
 }
 
-export function update(mac, info) {
+export function update(mac: string, info) {
     let raspberry = getByMac(mac);
     if (!raspberry) {
         // should not happen...
@@ -82,10 +79,10 @@ export function update(mac, info) {
     }
 
     Object.assign(raspberry, info);
-    webSocket.broadcast(`raspberry:update`, raspberry);
+    raspberriesBroadcast('raspberry:update', raspberry);
 }
 
-export function setOffline(mac) {
+export function setOffline(mac: string) {
     const raspberry = getByMac(mac);
     if (!raspberry) {
         // should not happen...
@@ -95,20 +92,20 @@ export function setOffline(mac) {
     if (!raspberry.data) {
         map.delete(mac);
         mapByMac.delete(mac);
-        webSocket.broadcast('raspberry:delete', raspberry.id);
+        raspberriesBroadcast('raspberry:delete', raspberry.id);
     } else {
         Object.assign(raspberry, {
             online: false,
             // keep last known ip
         });
 
-        webSocket.broadcast('raspberry:update', raspberry);
+        raspberriesBroadcast('raspberry:update', raspberry);
     }
 }
 
 /* FROM browser clients */
 
-export function changeConfig(id, config) {
+export function changeConfig(id: string, config: RaspberryConfig) {
     logger.log('changeConfig', { id, config });
     const raspberry = getById(id);
     if (!raspberry || !raspberry.registered) {
@@ -118,11 +115,11 @@ export function changeConfig(id, config) {
     }
 
     const newConfig = data.changeConfig(id, config);
-    raspberries.emit(raspberry.online, { type: 'change-config', config: newConfig });
+    raspberriesBroadcast(raspberry.online, 'changeConfig', newConfig);
     return newConfig;
 }
 
-export function add(mac, { name, addOrReplace, id }) {
+export function add(mac: string, { name, addOrReplace, id }) {
     logger.log('add', { mac, name, addOrReplace, id });
     const raspberry = getByMac(mac);
     if (!raspberry) {
@@ -159,7 +156,7 @@ export function add(mac, { name, addOrReplace, id }) {
     return raspberry;
 }
 
-export function sendAction(id, action) {
+export function sendAction(id: string, action: string) {
     const raspberry = getById(id);
     if (!raspberry || !raspberry.registered) {
         logger.warn('unknown raspberry', { id });
@@ -168,6 +165,6 @@ export function sendAction(id, action) {
     }
 
     Object.assign(raspberry, updateFromAction(action));
-    raspberries.emit(raspberry.online, { type: 'action', action });
+    raspberriesBroadcast(raspberry.online, 'action', action);
     return raspberry;
 }

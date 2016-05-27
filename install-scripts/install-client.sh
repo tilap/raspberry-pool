@@ -74,7 +74,7 @@ displayTitle 'Install dependencies'
 # xdotool: emulate keyboard key
 # supervisor: keep node client alive
 # scrot: screenshot tool
-sudo apt-get install -y uget tint2 xterm unclutter xdotool supervisor xinit openbox
+sudo apt-get install -y uget tint2 xterm unclutter xdotool supervisor xinit openbox scrot
 ​
 
 ##
@@ -83,7 +83,7 @@ sudo apt-get install -y uget tint2 xterm unclutter xdotool supervisor xinit open
 displayTitle 'Install kweb'
 
 if [ "$armVersion" = "v7l" ]; then
-    kwebVersion='1.6.9'
+    kwebVersion='1.7.1'
 else
     kwebVersion='1.6.8'
 fi
@@ -105,14 +105,11 @@ rm -rf "kweb-$kwebVersion" "kweb-$kwebVersion.tar.gz"
 if [ "$armVersion" = "v7l" ]; then
     displayTitle 'Install Chromium'
 
-    sudo apt-get install -y gconf-service libgconf-2-4 libgnome-keyring0 libnspr4 libnss3 xdg-utils libxss1
-    cd /tmp
-    wget https://dl.dropboxusercontent.com/u/87113035/chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb
-    wget https://dl.dropboxusercontent.com/u/87113035/chromium-browser_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
-    wget https://dl.dropboxusercontent.com/u/87113035/chromium-codecs-ffmpeg-extra_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
-    sudo dpkg -i chromium-codecs-ffmpeg-extra_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
-    sudo dpkg -i chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb chromium-browser_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
-    rm -f chromium-codecs-ffmpeg-extra_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb chromium-browser_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
+    # https://www.raspberrypi.org/forums/viewtopic.php?t=121195
+    wget -qO - http://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
+    echo "deb http://dl.bintray.com/kusti8/chromium-rpi jessie main" | sudo tee -a /etc/apt/sources.list
+    sudo apt-get update
+    sudo apt-get install chromium-browser -y
 fi;
 
 
@@ -144,17 +141,8 @@ sudo sed -i 's/^allowed_users=.*$/allowed_users=anybody/g' /etc/X11/Xwrapper.con
 ##
 displayTitle "Install Nodejs"
 
-nodeDirectory="node-v$NODEJS_VERSION-linux-arm$armVersion"
-wget "https://nodejs.org/download/release/v$NODEJS_VERSION/$nodeDirectory.tar.gz"
-tar xzvf "$nodeDirectory.tar.gz"
-cd $nodeDirectory
-sudo cp -R * /usr/local/
-sudo npm install -g npm
-
-cd $HOME
-rm "$nodeDirectory.tar.gz"
-rm -rf $nodeDirectory
-
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
 ##
 # Setup raspberry node client

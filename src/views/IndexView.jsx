@@ -4,7 +4,7 @@ import Header from './components/HeaderComponent';
 import RaspberryList from './components/RaspberryListComponent';
 import UnknownRaspberryList from './components/UnknownRaspberryListComponent';
 import * as raspberriesActions from './actions/raspberry';
-import { emit, on, off } from '../webSocket/index';
+import { emit, on, off } from '../websocket';
 
 class IndexView extends Component {
     static propTypes = {

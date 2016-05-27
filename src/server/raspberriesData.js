@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync } from 'fs';
+import type { RaspberryData, RaspberryConfig } from './types';
 /* import { slugify as _slugify } from 'transliteration';
 
 function slugify(string) {
@@ -7,7 +8,7 @@ function slugify(string) {
 
 const dataFilename = `${__dirname}/../../data/raspberries.json`;
 
-export const items = JSON.parse(readFileSync(dataFilename));
+export const items: Array<RaspberryData> = JSON.parse(readFileSync(dataFilename));
 const map = new Map(items.map(item => [item.id, item]));
 
 if (map.size !== items.length) {
@@ -18,11 +19,11 @@ function save() {
     writeFileSync(dataFilename, JSON.stringify(items, null, 4));
 }
 
-export function getById(id) {
+export function getById(id: string) {
     return map.get(id);
 }
 
-export function changeConfig(id, config) {
+export function changeConfig(id, config: RaspberryConfig) {
     if (!map.has(id)) {
         throw new Error('Invalid id');
     }
@@ -39,7 +40,7 @@ export function changeConfig(id, config) {
     return config;
 }
 // ip should not be written
-export function addNew(id, mac, name) {
+export function addNew(id: string, mac: string, name: string) {
     const newRaspberryItem = {
         id,
         name,
@@ -58,7 +59,7 @@ export function addNew(id, mac, name) {
     return newRaspberryItem;
 }
 
-export function replaceMacAddresses(id, newMacAddresses) {
+export function replaceMacAddresses(id: string, newMacAddresses: Array<string>) {
     if (!map.has(id)) {
         throw new Error('Invalid id');
     }
@@ -67,7 +68,7 @@ export function replaceMacAddresses(id, newMacAddresses) {
     save();
 }
 
-export function addMacAddress(id, newMacAddress) {
+export function addMacAddress(id: string, newMacAddress: string) {
     if (!map.has(id)) {
         throw new Error('Invalid id');
     }

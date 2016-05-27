@@ -10,18 +10,21 @@
   "keywords": [
     "raspberry"
   ],
+  "scripts": {
+    "watch": "make watch",
+    "release": "pob-release"
+  },
   "dependencies": {
     "alauda": "^1.1.0",
     "alp": "^3.3.2",
     "alp-react-redux": "^2.2.1",
     "alp-translate": "^0.1.1",
-    "alp-websocket": "^1.1.0",
+    "alp-websocket": "^1.2.0",
     "babel-regenerator-runtime": "^6.5.0",
     "fody-html-layout": "^2.1.0",
-    "json-tcp-socket": "^1.0.3",
     "nightingale": "^4.2.0",
     "nightingale-console": "^1.1.0",
-    "objectstream": "0.0.4",
+    "pob-release": "^2.0.2",
     "react-pure-render": "^1.0.2",
     "turaco-styl": "0.7.1"
   },

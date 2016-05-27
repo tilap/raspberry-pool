@@ -7,7 +7,7 @@ export const SAVED_RASPBERRY = 'SAVED_RASPBERRY';
 export const SENDING_ACTION_RASPBERRY = 'SENDING_ACTION_RASPBERRY';
 export const ACTION_SENT_RASPBERRY = 'ACTION_SENT_RASPBERRY';
 
-import * as webSocket from '../../webSocket/index';
+import * as websocket from '../../websocket';
 
 export function updateAll(raspberries) {
     return {
@@ -73,21 +73,23 @@ function actionSent(raspberry, action, result) {
 
 export function changeConfig(dispatch, raspberry, newConfig) {
     dispatch(saving(raspberry));
-    webSocket.changeConfig(raspberry, newConfig, () => {
+    websocket.changeConfig(raspberry, newConfig, () => {
         dispatch(saved(raspberry, { data: { ...raspberry.data, config: newConfig } }));
     });
 }
 
 export function sendAction(dispatch, raspberries, action) {
     raspberries.forEach(raspberry => dispatch(sendingAction(raspberry, action)));
-    webSocket.sendAction(raspberries, action, (result) => {
+    websocket.sendAction(raspberries, action, (result) => {
         raspberries.forEach(raspberry => dispatch(actionSent(raspberry, action, result)));
     });
 }
 
 export function saveUnknown(dispatch, raspberry, { name, addOrReplace, id }) {
     dispatch(saving(raspberry));
-    webSocket.registerUnknown(raspberry, { name, addOrReplace, id }, (newRaspberry) => {
+    console.log('registerUnknown', raspberry);
+    websocket.registerUnknown(raspberry, { name, addOrReplace, id }, (newRaspberry) => {
+        console.log('registerUnknown :)', newRaspberry);
         if (newRaspberry) {
             if (newRaspberry.id !== raspberry.id) {
                 dispatch(remove(raspberry.id));
