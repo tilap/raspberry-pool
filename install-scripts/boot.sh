@@ -5,13 +5,13 @@ BOOT_SCRIPT="installer.sh"
 case $1 in
     # The BOOT_SCRIPT is executed just after boot
     enable)
-        echo "sh $BOOT_SCRIPT" >> .profile
+        echo "sh $BOOT_SCRIPT" >> $HOME/.profile
     ;;
 
     # The BOOT_SCRIPT isn't execute anymore
     disable)
         rm $BOOT_SCRIPT
-        sed -i 's/^sh '$BOOT_SCRIPT'.*$//g' .profile
+        sed -i 's/^sh '$BOOT_SCRIPT'.*$//g' $HOME/.profile
     ;;
 
     # Rewrite the BOOT_SCRIPT
