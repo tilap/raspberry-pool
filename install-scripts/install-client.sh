@@ -166,6 +166,9 @@ stdout_logfile='$HOME'/logs/client.log
 user=pi
 ' | sudo tee /etc/supervisor/conf.d/node-client.conf
 
+# openbox started event
+echo 'rpi-cli display openbox-started' | sudo tee /etc/xdg/openbox/autostart
+
 sudo supervisorctl reread
 
 
