@@ -84,6 +84,8 @@ display_title "Enable auto login"
 ##
 display_title "Download install scripts"
 
+cd $HOME
+
 wget $URL"autologin.sh"
 sudo sh autologin.sh enable
 
