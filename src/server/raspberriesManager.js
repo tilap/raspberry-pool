@@ -115,7 +115,7 @@ export function changeConfig(id: string, config: RaspberryConfig) {
     }
 
     const newConfig = data.changeConfig(id, config);
-    raspberriesBroadcast(raspberry.online, 'changeConfig', newConfig);
+    emitToRaspberryClient(raspberry.online, 'changeConfig', newConfig);
     return newConfig;
 }
 
@@ -165,6 +165,6 @@ export function sendAction(id: string, action: string) {
     }
 
     Object.assign(raspberry, updateFromAction(action));
-    raspberriesBroadcast(raspberry.online, 'action', action);
+    emitToRaspberryClient(raspberry.online, 'action', action);
     return raspberry;
 }
