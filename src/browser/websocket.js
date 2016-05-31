@@ -22,6 +22,10 @@ export function init(app) {
     });
 }
 
+export function isConnected() {
+    return socket && socket.connected;
+}
+
 export function emit(eventName: string, ...args) {
     logger.debug('emit', { eventName, args });
     return socket.emit(eventName, ...args);

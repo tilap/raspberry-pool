@@ -8,12 +8,13 @@ const logger = new Logger('app.websocket');
 let io;
 let clientNs;
 
-export function raspberriesBroadcast(type, data) {
+export function raspberriesBroadcast(type, ...data) {
     logger.info('broadcast', { type, data });
-    clientNs.to('raspberries').emit(type, data);
+    clientNs.to('raspberries').emit(type, ...data);
 }
 
 export { emit as emitToRaspberryClient } from './raspberryClient';
+export { broadcast as broadcastToRaspberryClients } from './raspberryClient';
 
 export function init(app) {
     io = websocket(app);

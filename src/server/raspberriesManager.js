@@ -1,7 +1,7 @@
 import Logger from 'nightingale';
 import * as data from './raspberriesData';
 import { updateFromAction } from '../common/raspberryActionManager';
-import { raspberriesBroadcast, emitToRaspberryClient } from './websocket';
+import { raspberriesBroadcast, emitToRaspberryClient, broadcastToRaspberryClients } from './websocket';
 import type { RaspberryConfig, RaspberryData, Raspberry } from './types';
 
 const logger = new Logger('app.raspberriesManager');
@@ -37,6 +37,10 @@ export function getByMac(mac: string): ?Raspberry {
 
 export function getAll(): Array<Raspberry> {
     return Array.from(map.values());
+}
+
+export function screenshotPath(id: string): string {
+    return data.screenshotPath(id);
 }
 
 /* FROM raspberry clients */
@@ -103,7 +107,46 @@ export function setOffline(mac: string) {
     }
 }
 
+export function changeScreenshot(mac: string, screenshot: Buffer) {
+    const raspberry = getByMac(mac);
+    if (!raspberry) {
+        logger.warn('changeScreenshot, no raspberry', { mac });
+        // should not happen...
+        return;
+    }
+
+    data.saveScreenshot(raspberry.id, screenshot);
+    raspberriesBroadcast('raspberry:screenshot-updated', raspberry.id, Date.now());
+}
+
 /* FROM browser clients */
+
+const TIME_OUTDATED = 30000;
+let intervalUpdateData;
+let lastUpdated = Date.now() - TIME_OUTDATED;
+
+export function raspberriesClientsConnected() {
+    const now = Date.now();
+    if (lastUpdated > now - TIME_OUTDATED) {
+        logger.debug('not outdated');
+        return;
+    }
+    lastUpdated = now;
+
+    logger.info('update data');
+    broadcastToRaspberryClients('screenshot');
+
+    intervalUpdateData = setInterval(() => {
+        logger.info('update data');
+        broadcastToRaspberryClients('screenshot');
+    }, TIME_OUTDATED);
+}
+
+export function raspberriesClientsDisonnected() {
+    if (intervalUpdateData) {
+        clearInterval(intervalUpdateData);
+    }
+}
 
 export function changeConfig(id: string, config: RaspberryConfig) {
     logger.log('changeConfig', { id, config });

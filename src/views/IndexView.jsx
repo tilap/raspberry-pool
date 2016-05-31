@@ -4,7 +4,7 @@ import Header from './components/HeaderComponent';
 import RaspberryList from './components/RaspberryListComponent';
 import UnknownRaspberryList from './components/UnknownRaspberryListComponent';
 import * as raspberriesActions from './actions/raspberry';
-import { emit, on, off } from '../websocket';
+import { isConnected, emit, on, off } from '../websocket';
 
 class IndexView extends Component {
     static propTypes = {
@@ -27,8 +27,15 @@ class IndexView extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props;
-        emit('subscribe:raspberries', ({ raspberries }) => {
-            dispatch(raspberriesActions.updateAll(raspberries));
+        if (isConnected()) {
+            emit('subscribe:raspberries', ({ raspberries }) => {
+                dispatch(raspberriesActions.updateAll(raspberries));
+            });
+        }
+        this._handlerConnected = on('connect', () => {
+            emit('subscribe:raspberries', ({ raspberries }) => {
+                dispatch(raspberriesActions.updateAll(raspberries));
+            });
         });
         this._handlerAdd = on('raspberry:add', (raspberry) => {
             dispatch(raspberriesActions.add(raspberry));
@@ -39,13 +46,18 @@ class IndexView extends Component {
         this._handlerDelete = on('raspberry:delete', (id) => {
             dispatch(raspberriesActions.remove(id));
         });
+        this._handlerScreenshot = on('raspberry:screenshot-updated', (id, screenshotDate) => {
+            dispatch(raspberriesActions.screenshotUpdated(id, screenshotDate));
+        });
     }
 
     componentWillUnmount() {
         emit('unsubscribe:raspberries');
+        off('connect', this._handlerConnected);
         off('raspberry:add', this._handlerAdd);
         off('raspberry:update', this._handlerUpdate);
         off('raspberry:delete', this._handlerDelete);
+        off('raspberry:screenshot-updated', this._handlerScreenshot);
     }
 
     render() {

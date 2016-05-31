@@ -2,6 +2,7 @@ export const UPDATE_ALL = 'UPDATE_ALL_RASPBERRY';
 export const ADD_RASPBERRY = 'ADD_RASPBERRY';
 export const UPDATE_RASPBERRY = 'UPDATE_RASPBERRY';
 export const REMOVE_RASPBERRY = 'REMOVE_RASPBERRY';
+export const SCREENSHOT_UPDATED = 'SCREENSHOT_UPDATED';
 export const SAVING_RASPBERRY = 'SAVING_RASPBERRY';
 export const SAVED_RASPBERRY = 'SAVED_RASPBERRY';
 export const SENDING_ACTION_RASPBERRY = 'SENDING_ACTION_RASPBERRY';
@@ -35,6 +36,14 @@ export function remove(id) {
     return {
         type: REMOVE_RASPBERRY,
         id,
+    };
+}
+
+export function screenshotUpdated(id, screenshotDate) {
+    return {
+        type: SCREENSHOT_UPDATED,
+        id,
+        screenshotDate,
     };
 }
 

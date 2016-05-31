@@ -16,6 +16,10 @@ export function emit(mac, eventName: string, ...data?: Array<any>) {
     clients.get(mac).emit(eventName, ...data);
 }
 
+export function broadcast(eventName: string, ...data?: Array<any>) {
+    clients.forEach(socket => socket.emit(eventName, ...data));
+}
+
 
 export default function init(socket) {
     logger.info('client connected');
@@ -49,6 +53,12 @@ export default function init(socket) {
         clients.set(mac, socket);
 
         raspberriesManager.setOnline(mac, configTime, { ip, screenState });
+    });
+
+    socket.on('screenshot', ({ buffer }, callback) => {
+        logger.info('got screenshot');
+        raspberriesManager.changeScreenshot(clientMac, buffer); // non async method
+        callback();
     });
 
     socket.on('update', data => {

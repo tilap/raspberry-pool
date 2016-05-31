@@ -1,4 +1,14 @@
-import { UPDATE_ALL, ADD_RASPBERRY, UPDATE_RASPBERRY, REMOVE_RASPBERRY, SAVING_RASPBERRY, SAVED_RASPBERRY, SENDING_ACTION_RASPBERRY, ACTION_SENT_RASPBERRY } from '../actions/raspberry';
+import {
+    UPDATE_ALL,
+    ADD_RASPBERRY,
+    UPDATE_RASPBERRY,
+    REMOVE_RASPBERRY,
+    SCREENSHOT_UPDATED,
+    SAVING_RASPBERRY,
+    SAVED_RASPBERRY,
+    SENDING_ACTION_RASPBERRY,
+    ACTION_SENT_RASPBERRY,
+} from '../actions/raspberry';
 import { updateFromAction } from '../../common/raspberryActionManager';
 
 function raspberry(raspberry, action) {
@@ -13,6 +23,8 @@ function raspberry(raspberry, action) {
     switch (action.type) {
         case UPDATE_RASPBERRY:
             return action.raspberry;
+        case SCREENSHOT_UPDATED:
+            return { ...raspberry };
         case SAVING_RASPBERRY:
             return {
                 ...raspberry,
@@ -60,6 +72,7 @@ export default function raspberries(raspberries = [], action) {
         case UPDATE_ALL:
             return action.raspberries;
         case UPDATE_RASPBERRY:
+        case SCREENSHOT_UPDATED:
         case SAVING_RASPBERRY:
         case SAVED_RASPBERRY:
         case SENDING_ACTION_RASPBERRY:

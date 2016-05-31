@@ -3,11 +3,19 @@ import Logger from 'nightingale';
 
 const logger = new Logger('app.websocket.raspberries');
 
+let clientsCount = 0;
+
 export default function init(socket) {
-    logger.info('connected');
+    if (clientsCount++ === 0) {
+        raspberriesManager.raspberriesClientsConnected();
+    }
+    logger.info('connected', { clientsCount });
 
     socket.on('disconnect', () => {
-        logger.info('disconnected');
+        if (--clientsCount === 0) {
+            raspberriesManager.raspberriesClientsDisonnected();
+        }
+        logger.info('disconnected', { clientsCount });
     });
 
     socket.on('subscribe:raspberries', (callback) => {

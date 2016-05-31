@@ -6,7 +6,8 @@ function slugify(string) {
     return _slugify(string, { lowercase: true, separator: '-' });
 } */
 
-const dataFilename = `${__dirname}/../../data/raspberries.json`;
+const dataPath = `${__dirname}/../../data`;
+const dataFilename = `${dataPath}/raspberries.json`;
 
 export const items: Array<RaspberryData> = JSON.parse(readFileSync(dataFilename));
 const map = new Map(items.map(item => [item.id, item]));
@@ -75,4 +76,12 @@ export function addMacAddress(id: string, newMacAddress: string) {
 
     map.get(id).macAddresses.push(newMacAddress);
     save();
+}
+
+export function saveScreenshot(id: string, screenshot: Buffer) {
+    writeFileSync(screenshotPath(id), screenshot);
+}
+
+export function screenshotPath(id: string): string {
+    return `${dataPath}/screenshot-${id}.png`;
 }

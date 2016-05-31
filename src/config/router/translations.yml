@@ -6,3 +6,6 @@ common:
         install:
             en: install
             fr: install
+        screenshot:
+            en: screenshot
+            fr: screenshot

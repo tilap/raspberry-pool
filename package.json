@@ -22,6 +22,7 @@
     "alp-websocket": "^1.2.0",
     "babel-regenerator-runtime": "^6.5.0",
     "fody-html-layout": "^2.1.0",
+    "koa-sendfile": "^2.0.0",
     "nightingale": "^4.2.0",
     "nightingale-browser-console": "^0.1.0",
     "nightingale-console": "^1.1.0",
