@@ -7,13 +7,13 @@ const MIN_SUPPORTED_VERSION = '4.1.0';
 const clients = new Map();
 
 
-export function emit(mac, eventName: string, data?: Object) {
+export function emit(mac, eventName: string, ...data?: Array<any>) {
     logger.debug('emit', { mac, data });
     if (!clients.has(mac)) {
         logger.warn('cannot send message');
         return;
     }
-    clients.get(mac).emit(eventName, data);
+    clients.get(mac).emit(eventName, ...data);
 }
 
 
@@ -51,7 +51,9 @@ export default function init(socket) {
         raspberriesManager.setOnline(mac, configTime, { ip, screenState });
     });
 
-    socket.on('update', (...data) => {
+    socket.on('update', data => {
+        logger.info('received update', data);
+
         const patch = {};
         ['screenState', 'updating'].forEach(key => {
             if (data.hasOwnProperty(key)) {

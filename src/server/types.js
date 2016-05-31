@@ -13,8 +13,9 @@ export type RaspberryData = {
 
 export type Raspberry = {
     id: string,
-    data: RaspberryData,
-    registered: boolean,
+    data?: RaspberryData,
+    registered?: boolean,
     online: boolean|string,
     ip: string|null,
+    screenState: string|null,
 };
