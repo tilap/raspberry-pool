@@ -70,12 +70,15 @@ displayTitle 'Install dependencies'
 # uget: kweb - download manager
 # tint2: kweb - task bar
 # xterm: kweb - full screen video without GUI
+# lxterminal: kweb
 # unclutter: hide the mouse cursor
 # xdotool: emulate keyboard key
 # supervisor: keep node client alive
 # scrot: screenshot tool
-sudo apt-get install -y uget tint2 xterm unclutter xdotool supervisor xinit openbox scrot
+sudo apt-get install -y uget tint2 xterm unclutter xdotool supervisor xinit openbox scrot lxterminal
 ​
+# youtube-dl for video support
+ginstall-ytdl
 
 ##
 # Install kweb
@@ -93,8 +96,6 @@ tar xzvf "kweb-$kwebVersion.tar.gz"
 cd "kweb-$kwebVersion"
 ./debinstall
 
-# youtube-dl for video support
-ginstall-ytdl
 
 cd $HOME
 rm -rf "kweb-$kwebVersion" "kweb-$kwebVersion.tar.gz"
