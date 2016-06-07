@@ -74,6 +74,7 @@ network={
 ' | sudo tee --append /etc/wpa_supplicant/wpa_supplicant.conf
 fi
 
+
 ##
 # Enable auto login
 ##

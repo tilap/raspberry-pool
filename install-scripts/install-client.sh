@@ -75,42 +75,43 @@ displayTitle 'Install dependencies'
 # xdotool: emulate keyboard key
 # supervisor: keep node client alive
 # scrot: screenshot tool
-sudo apt-get install -y uget tint2 xterm unclutter xdotool supervisor xinit openbox scrot lxterminal
-​
-# youtube-dl for video support
-ginstall-ytdl
+# livestreamer: display videos from internet
+# omxplayer: display videos
+sudo apt-get install -y uget tint2 xterm unclutter xdotool supervisor xinit openbox scrot lxterminal livestreamer omxplayer
 
 ##
-# Install kweb
-##
-displayTitle 'Install kweb'
-
-if [ "$armVersion" = "v7l" ]; then
-    kwebVersion='1.7.1'
-else
-    kwebVersion='1.6.8'
-fi
-
-wget "http://steinerdatenbank.de/software/kweb-$kwebVersion.tar.gz"
-tar xzvf "kweb-$kwebVersion.tar.gz"
-cd "kweb-$kwebVersion"
-./debinstall
-
-
-cd $HOME
-rm -rf "kweb-$kwebVersion" "kweb-$kwebVersion.tar.gz"
-
-##
-# Install Chromium
+# Install kweb/Chromium
 ##
 if [ "$armVersion" = "v7l" ]; then
-    displayTitle 'Install Chromium'
+    displayTitle 'Install kweb / Chromium'
+
+    # youtube-dl for video support
+    ginstall-ytdl
 
     # https://www.raspberrypi.org/forums/viewtopic.php?t=121195
     wget -qO - http://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
     echo "deb http://dl.bintray.com/kusti8/chromium-rpi jessie main" | sudo tee -a /etc/apt/sources.list
     sudo apt-get update
-    sudo apt-get install chromium-browser -y
+    sudo apt-get install -y chromium-browser kweb
+else
+    # raspberry 1
+
+    ##
+    # Install kweb
+    ##
+    displayTitle 'Install kweb'
+
+    # youtube-dl for video support
+    ginstall-ytdl
+
+    kwebVersion='1.6.8'
+    wget "http://steinerdatenbank.de/software/kweb-$kwebVersion.tar.gz"
+    tar xzvf "kweb-$kwebVersion.tar.gz"
+    cd "kweb-$kwebVersion"
+    ./debinstall
+    cd $HOME
+    rm -rf "kweb-$kwebVersion" "kweb-$kwebVersion.tar.gz"
+
 fi;
 
 
