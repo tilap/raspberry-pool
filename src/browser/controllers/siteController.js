@@ -1,10 +1,10 @@
 import newController from 'alp-controller';
-import * as appDescriptor from '../../views/index';
+import * as raspberriesDescriptor from '../../views/raspberries';
 import InstallView from '../../views/InstallView';
 
 export default newController({
     index(ctx) {
-        return ctx.render(appDescriptor, { raspberries: [] });
+        return ctx.render(raspberriesDescriptor, { raspberries: [] });
     },
 
     install(ctx) {

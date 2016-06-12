@@ -1,1 +1,1 @@
-module.exports = require('../browser/websocket');
+export * from '../browser/websocket';

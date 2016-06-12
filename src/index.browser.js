@@ -16,7 +16,7 @@ import { init } from 'alauda/web-app';
 import controllers from './browser/controllers';
 import routerBuilder from './common/routerBuilder';
 
-import * as moduleDescriptor from './views/index';
+import * as moduleDescriptors from './views/modules';
 
 function ready() {
     return new Promise((resolve) => {
@@ -33,13 +33,11 @@ ready()
         const app = new Alp();
         app.appVersion = window.VERSION;
         await app.init();
+        reactredux(document.getElementById('app'))(app);
         websocket(app);
+
         const handler = app.createRouter(routerBuilder, controllers);
-        await reactredux({
-            moduleDescriptor: window.MODULE_IDENTIFIER === 'raspberries-list' ? moduleDescriptor : undefined,
-            initialData: window.initialData,
-            element: document.getElementById('app'),
-        })(app);
+        await app.initialRender(moduleDescriptors[window.MODULE_IDENTIFIER], window.initialData);
 
         app.use(handler);
         init(url => app.load(url));

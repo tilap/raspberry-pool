@@ -1,5 +1,5 @@
 import newController from 'alp-controller';
-import * as appDescriptor from '../../views/index';
+import * as raspberriesDescriptor from '../../views/raspberries';
 import InstallView from '../../views/InstallView';
 import NoConfigView from '../../views/NoConfigView';
 import * as raspberriesManager from '../raspberriesManager';
@@ -7,7 +7,7 @@ import send from 'koa-sendfile';
 
 export default newController({
     index(ctx) {
-        return ctx.render(appDescriptor, { raspberries: raspberriesManager.getAll() });
+        return ctx.render(raspberriesDescriptor, { raspberries: raspberriesManager.getAll() });
     },
 
     async screenshot(ctx) {

@@ -9,16 +9,22 @@ import routerBuilder from './common/routerBuilder';
 import Html from './views/layouts/Html';
 import controllers from './server/controllers';
 import { init as websocket } from './server/websocket';
+import config from './server/config';
 
-const app = new Alp(
-    `${__dirname}/..`,
-    __dirname,
-    { argv: ['websocket.port'] }
-);
+const app = new Alp({
+    srcDirname: __dirname,
+    packageDirname: `${__dirname}/..`,
+    config,
+});
+
+// config / init
 app.proxy = true;
 reactredux(Html)(app);
+
+// middlewares
 app.servePublic();
 app.catchErrors();
 app.useRouter(routerBuilder, controllers);
 app.listen();
+
 websocket(app);

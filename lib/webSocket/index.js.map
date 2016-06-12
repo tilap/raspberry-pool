@@ -1,1 +1,1 @@
-{"version":3,"sources":["websocket/index.js"],"names":[],"mappings":";;AAAA,OAAO,OAAP,GAAiB,QAAQ,qBAAR,CAAjB","file":"websocket/index.js","sourcesContent":["module.exports = require('../server/websocket');\n"],"sourceRoot":"/"}
+{"version":3,"sources":["websocket/index.js"],"names":[],"mappings":";;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA","file":"websocket/index.js","sourcesContent":["export * from '../server/websocket';\n"],"sourceRoot":"/"}
