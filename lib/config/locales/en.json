@@ -1,3 +1,13 @@
 {
-    "raspberry-pool.title": "Raspberry Pool"
+    "raspberry-pool.title": "Raspberry Pool",
+    "header.installClientLink": "Install client",
+    "unknownRaspberry.title": "Add a new Raspberry",
+    "unknownRaspberry.addToExisting": "Add to existing raspberry",
+    "unknownRaspberry.add": "Add",
+    "unknownRaspberry.replace": "Replace",
+    "raspberry.offline": "Offline",
+    "raspberry.config": "Config",
+    "raspberry.display": "Display",
+    "raspberry.url": "URL",
+    "raspberry.save": "Save"
 }

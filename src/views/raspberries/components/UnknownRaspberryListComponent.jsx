@@ -16,7 +16,7 @@ export default class UnknownRaspberryListComponent extends Component {
         const { raspberries, offlineRaspberries, saveUnknown, sendAction } = this.props;
 
         if (!raspberries.length) {
-            return <div />;
+            return null;
         }
 
         return (<ul className="raspberry-list">

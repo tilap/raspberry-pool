@@ -1,6 +1,7 @@
 import { Component, PropTypes } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 import Spinner from '../../components/SpinnerComponent';
+import T from 'react-alp-translate';
 
 export default class UnknownRaspberryComponent extends Component {
     static propTypes = {
@@ -28,7 +29,7 @@ export default class UnknownRaspberryComponent extends Component {
 
             <div className="row row-responsive spaced">
                 <div className="col wp-50">
-                    <div className="text-paragraph-title">Add a new Raspberry</div>
+                    <div className="text-paragraph-title"><T key="unknownRaspberry.title" /></div>
                     <div className="input text">
                         <input
                             type="text"
@@ -43,7 +44,7 @@ export default class UnknownRaspberryComponent extends Component {
                 </div>
                 {!offlineRaspberries.length ? '' :
                     <div className="col wp-50">
-                        <div className="text-paragraph-title">Add to existing raspberry</div>
+                        <div className="text-paragraph-title"><T key="unknownRaspberry.addToExisting" /></div>
                         <div className="input radio">
                             <input
                                 id={`add-raspberry-${raspberry.id}`}
@@ -53,7 +54,7 @@ export default class UnknownRaspberryComponent extends Component {
                                 value="add"
                                 onChange={(e) => this.setState({ addOrReplace: e.target.value })}
                             />
-                            <label htmlFor={`add-raspberry-${raspberry.id}`}>Add</label>
+                            <label htmlFor={`add-raspberry-${raspberry.id}`}><T key="unknownRaspberry.add" /></label>
                         </div>
                         <div className="input radio">
                             <input
@@ -63,7 +64,7 @@ export default class UnknownRaspberryComponent extends Component {
                                 value="replace"
                                 onChange={(e) => this.setState({ addOrReplace: e.target.value })}
                             />
-                            <label htmlFor={`replace-raspberry-${raspberry.id}`}>Replace</label>
+                            <label htmlFor={`replace-raspberry-${raspberry.id}`}><T key="unknownRaspberry.replace" /></label>
                         </div>
                         <select name="raspberry" onChange={(e) => this.setState({ id: e.target.value })}>
                             {!this.state.id && <option key="__empty"></option>}

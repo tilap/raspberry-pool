@@ -2,6 +2,7 @@ import { Component, PropTypes } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 import Spinner from '../../components/SpinnerComponent';
 import Actions from './raspberry/ActionsComponent';
+import T from 'react-alp-translate';
 
 export default class RaspberryComponent extends Component {
     static propTypes = {
@@ -55,14 +56,14 @@ export default class RaspberryComponent extends Component {
 
             <div className="status-container">
                 <span className={`raspberry-status label ${raspberry.online ? 'success' : 'warning'}`}>
-                    {raspberry.online ? `${raspberry.ip}` : 'Offline'}
+                    {raspberry.online ? `${raspberry.ip}` : <T id="raspberry.offline" />}
                 </span>
             </div>
 
             <Actions raspberries={[raspberry]} sendAction={sendAction} />
 
             <fieldset>
-                <legend>Config</legend>
+                <legend><T id="raspberry.config" /></legend>
                 <div className="row row-responsive spaced">
                     <div className="col" style={{ width: '100px', 'flex-basis': '100px', 'flex-grow': 0 }}>
                         <div className="input select">
@@ -78,7 +79,7 @@ export default class RaspberryComponent extends Component {
                                 <option value="chromium">chromium</option>
                                 <option value="livestreamer">livestreamer</option>
                             </select>
-                            <label htmlFor={`raspberry-select-${raspberry.id}`}>Display</label>
+                            <label htmlFor={`raspberry-select-${raspberry.id}`}><T id="raspberry.display" /></label>
                         </div>
                     </div>
                     <div className="col">
@@ -93,7 +94,7 @@ export default class RaspberryComponent extends Component {
                                     url: raspberry.data.config.url === e.target.value ? null : e.target.value,
                                 })}
                             />
-                            <label htmlFor={`raspberry-url-${raspberry.id}`}>URL</label>
+                            <label htmlFor={`raspberry-url-${raspberry.id}`}><T id="raspberry.url" /></label>
                         </div>
                     </div>
                 </div>
@@ -109,7 +110,7 @@ export default class RaspberryComponent extends Component {
                             changeConfig(raspberry, { display, url });
                         }}
                     >
-                        Save
+                        <T id="raspberry.save" />
                     </button>
                 </div>
             </fieldset>

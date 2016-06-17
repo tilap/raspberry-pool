@@ -1,83 +1,22 @@
-export const UPDATE_ALL = 'UPDATE_ALL_RASPBERRY';
-export const ADD_RASPBERRY = 'ADD_RASPBERRY';
-export const UPDATE_RASPBERRY = 'UPDATE_RASPBERRY';
-export const REMOVE_RASPBERRY = 'REMOVE_RASPBERRY';
-export const SCREENSHOT_UPDATED = 'SCREENSHOT_UPDATED';
-export const SAVING_RASPBERRY = 'SAVING_RASPBERRY';
-export const SAVED_RASPBERRY = 'SAVED_RASPBERRY';
-export const SENDING_ACTION_RASPBERRY = 'SENDING_ACTION_RASPBERRY';
-export const ACTION_SENT_RASPBERRY = 'ACTION_SENT_RASPBERRY';
+import { createAction } from 'alp-react-redux';
 
 import * as websocket from '../../../websocket';
 
-export function updateAll(raspberries) {
-    return {
-        type: UPDATE_ALL,
-        raspberries,
-    };
-}
-
-export function add(raspberry) {
-    return {
-        type: ADD_RASPBERRY,
-        raspberry,
-    };
-}
-
-export function update(raspberry) {
-    return {
-        type: UPDATE_RASPBERRY,
-        id: raspberry.id,
-        raspberry,
-    };
-}
-
-export function remove(id) {
-    return {
-        type: REMOVE_RASPBERRY,
-        id,
-    };
-}
-
-export function screenshotUpdated(id, screenshotDate) {
-    return {
-        type: SCREENSHOT_UPDATED,
-        id,
-        screenshotDate,
-    };
-}
-
-function saving(raspberry) {
-    return {
-        type: SAVING_RASPBERRY,
-        id: raspberry.id,
-    };
-}
-
-function saved(raspberry, changes) {
-    return {
-        type: SAVED_RASPBERRY,
-        id: raspberry.id,
-        changes,
-    };
-}
-
-function sendingAction(raspberry, action) {
-    return {
-        type: SENDING_ACTION_RASPBERRY,
-        id: raspberry.id,
-        action: action,
-    };
-}
-
-function actionSent(raspberry, action, result) {
-    return {
-        type: ACTION_SENT_RASPBERRY,
-        id: raspberry.id,
-        action: action,
-        result: result,
-    };
-}
+export const updateAll = createAction('UPDATE_ALL_RASPBERRIES', 'raspberries');
+export const add = createAction('ADD_RASPBERRY', 'raspberry');
+export const update = createAction('UPDATE_RASPBERRY', raspberry => ({ id: raspberry.id, raspberry }));
+export const remove = createAction('REMOVE_RASPBERRY', 'id');
+export const screenshotUpdated = createAction('SCREENSHOT_UPDATED', 'id,screenshotDate');
+export const saving = createAction('SAVING_RASPBERRY', raspberry => ({ id: raspberry.id }));
+export const saved = createAction('SAVED_RASPBERRY', (raspberry, changes) => ({ id: raspberry.id, changes }));
+export const sendingAction = createAction(
+    'SENDING_ACTION_RASPBERRY',
+    (raspberry, action) => ({ id: raspberry.id, action })
+);
+export const actionSent = createAction(
+    'ACTION_SENT_RASPBERRY',
+    (raspberry, action, result) => ({ id: raspberry.id, action, result })
+);
 
 
 export function changeConfig(dispatch, raspberry, newConfig) {

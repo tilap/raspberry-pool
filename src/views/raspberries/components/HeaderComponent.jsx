@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 import Actions from './raspberry/ActionsComponent';
+import T from 'react-alp-translate';
+import Link from 'react-alp-link';
 
 export default class HeaderComponent extends Component {
     static propTypes = {
@@ -19,10 +21,12 @@ export default class HeaderComponent extends Component {
 
         return (<header className="header">
             <div className="left">
-                {this.context.context.t('raspberry-pool.title')}
+                <T id="raspberry-pool.title" />
             </div>
             <div className="right">
-                <a className="button flat" href={this.context.context.urlGenerator('default', { action: 'install' })}>Install client</a>
+                <Link to="default" params={{ action: 'install' }} className="button flat">
+                    <T id="header.installClientLink" />
+                </Link>
                 <Actions raspberries={raspberries} sendAction={sendAction} />
             </div>
         </header>);
