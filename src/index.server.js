@@ -5,11 +5,11 @@ addGlobalHandler(new ConsoleLogger());
 
 import Alp from 'alp';
 import reactredux from 'alp-react-redux';
-import routerBuilder from './common/routerBuilder';
-import Html from './views/layouts/Html';
-import controllers from './server/controllers';
-import { init as websocket } from './server/websocket';
-import config from './server/config';
+import routerBuilder from './routerBuilder';
+import Html from './modules/common/layouts/Html';
+import controllers from './modules/controllers.server';
+import { init as websocket } from './websocket';
+import config from './config.server';
 
 const app = new Alp({
     srcDirname: __dirname,
@@ -19,6 +19,7 @@ const app = new Alp({
 
 // config / init
 app.proxy = true;
+app.DATA_PATH = `${__dirname}/../data/`;
 reactredux(Html)(app);
 
 // middlewares

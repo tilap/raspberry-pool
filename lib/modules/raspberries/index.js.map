@@ -1,0 +1,1 @@
+{"version":3,"sources":["modules/raspberries/index.js"],"names":[],"mappings":";;;;;;;;;;;8CACS,O;;;;;;;;;6CACA,O;;;;;;AAFF,MAAM,kCAAa,aAAnB","file":"modules/raspberries/index.js","sourcesContent":["export const identifier = 'raspberries';\nexport { default as View } from './IndexView';\nexport { default as reducer } from './reducers';\n"],"sourceRoot":"/"}
