@@ -18,7 +18,7 @@
     "alauda": "^1.1.0",
     "alp": "^4.1.0",
     "alp-react-redux": "^4.0.0",
-    "alp-websocket": "^2.0.0",
+    "alp-websocket": "^2.1.0",
     "babel-regenerator-runtime": "^6.5.0",
     "fody-html-layout": "^2.2.0",
     "koa-sendfile": "^2.0.0",
@@ -27,6 +27,7 @@
     "nightingale-console": "^1.1.0",
     "pob-release": "^2.0.5",
     "react-alp-link": "^0.1.0",
+    "react-alp-subscribe-container": "^0.1.0",
     "react-alp-translate": "^0.1.1",
     "react-pure-render": "^1.0.2",
     "turaco-styl": "0.9.0"
@@ -37,7 +38,7 @@
     "babel-eslint": "^6.1.0",
     "eslint": "^3.0.0",
     "eslint-config-airbnb": "^9.0.1",
-    "eslint-config-pob": "^6.1.1",
+    "eslint-config-pob": "^6.1.2",
     "eslint-plugin-import": "^1.10.0",
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.2.2"

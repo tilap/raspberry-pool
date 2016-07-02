@@ -1,7 +1,8 @@
 import * as raspberriesManager from '../raspberriesManager.server';
 import Logger from 'nightingale';
-import { update, updateConfig } from '../actions/raspberry';
+import { updateAll, update, updateConfig } from '../actions/raspberry';
 import { emitAction } from 'alp-react-redux';
+import { subscribe } from 'alp-websocket';
 
 const logger = new Logger('app.websocket.raspberries');
 
@@ -30,16 +31,7 @@ function onConnection(socket) {
         logger.info('disconnected', { clientsCount });
     });
 
-    socket.on('subscribe:raspberries', (callback) => {
-        logger.info('join');
-        socket.join('raspberries');
-        callback({ raspberries: raspberriesManager.getAll() });
-    });
-
-    socket.on('unsubscribe:raspberries', () => {
-        logger.info('leave');
-        socket.leave('raspberries');
-    });
+    subscribe(socket, 'raspberries', () => updateAll(raspberriesManager.getAll()));
 
     socket.on('raspberry:changeConfig', (id, config, callback) => {
         const newConfig = raspberriesManager.changeConfig(id, config, callback);

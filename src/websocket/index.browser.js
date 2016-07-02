@@ -39,5 +39,3 @@ export function on(type, handler) {
 export function off(type, handler) {
     socket.off(type, handler);
 }
-
-
