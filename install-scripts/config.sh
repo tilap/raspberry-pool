@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export NODEJS_VERSION='6.2.0'
+export NODEJS_VERSION='6.3.1'
 
 export ENABLE_SSH_KEY_AUTH=false
 export SSH_PUBLIC_KEYS=''
